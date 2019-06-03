@@ -1,0 +1,29 @@
+{
+  "name": "tc-submission-api-review-types-wrapper",
+  "version": "1.0.0",
+  "description": "Wrapper for Topcoder Submission API ReviewTypes Endpoint",
+  "main": "index.js",
+  "scripts": {
+    "lint": "standard",
+    "lint:fix": "standard --fix",
+    "test": "mocha test/*.test.js --timeout 30000 --exit",
+    "cov": "nyc --reporter=html --reporter=text mocha test/*.test.js --timeout 30000 --exit"
+  },
+  "dependencies": {
+    "@hapi/joi": "^15.0.3",
+    "lodash": "^4.17.11",
+    "superagent": "^3.8.3",
+    "tc-core-library-js": "appirio-tech/tc-core-library-js.git#v2.6.1"
+  },
+  "devDependencies": {
+    "chai": "^4.2.0",
+    "mocha": "^6.1.4",
+    "nyc": "^14.1.1",
+    "standard": "^12.0.1"
+  },
+  "standard": {
+    "env": [
+      "mocha"
+    ]
+  }
+}
