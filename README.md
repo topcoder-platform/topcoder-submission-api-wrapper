@@ -1,20 +1,20 @@
-# Topcoder Submission API Review Types Wrapper
+# Topcoder Submission API Wrapper
 
-Wrapper library for Topcoder Submission API ReviewTypes endpoint
+Wrapper library for Topcoder Submission API
 
 ## How to use this Wrapper
 
 1. Include the wrapper in package.json as follows
 
     ```bash
-    "tc-submission-api-review-types-wrapper": "topcoder-platform/tc-submission-api-review-types-wrapper.git"
+    "tc-submission-api-wrapper": "topcoder-platform/tc-submission-api-wrapper.git"
     ```
 
 2. Create an instance of this wrapper with the configuration variables listed below
 
     ```bash
-    const reviewTypesApi = require('tc-submission-api-review-types-wrapper')
-    const reviewTypesApiClient = reviewTypesApi(_.pick(config,
+    const submissionApi = require('tc-submission-api-wrapper')
+    const submissionApiClient = submissionApi(_.pick(config,
           ['AUTH0_URL', 'AUTH0_AUDIENCE', 'TOKEN_CACHE_TIME',
             'AUTH0_CLIENT_ID', 'AUTH0_CLIENT_SECRET', 'SUBMISSION_API_URL',
             'AUTH0_PROXY_SERVER_URL']))
@@ -35,21 +35,25 @@ Wrapper library for Topcoder Submission API ReviewTypes endpoint
 E.g.
 
 ```bash
-let reviewTypeId = '8f4e8b6a-0ad2-4ff6-ab19-afeb102ff3b4'
+const reviewTypeId = '8f4e8b6a-0ad2-4ff6-ab19-afeb102ff3b4'
 
-reviewTypesApiClient
+submissionApiClient
   .createReviewType({ name: 'test-for-create', isActive: true })
   .then(result => console.log(result.body, result.status))
   .catch(err => console.log(err))
 
-await reviewTypesApiClient.deleteReviewType(reviewTypeId)
+await submissionApiClient.deleteReviewType(reviewTypeId)
+
+const result = await submissionApiClient.searchReviews({ page: 2, perPage: 30 })
 ```
 
 Refer `index.js` for the list of available wrapper functions
 
-## Documentation for Review Types wrapper methods
+## Documentation for wrapper methods
 
 All URIs are relative to **SUBMISSION_API_URL** configuration variable.
+
+### Review Types wrapper methods
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
@@ -62,9 +66,22 @@ Method | HTTP request | Description
 [**patchReviewType**](docs/ReviewTypesApi.md#patchReviewType) | **PATCH** /reviewTypes/{reviewTypeId} | Partially update review type.
 [**deleteReviewType**](docs/ReviewTypesApi.md#deleteReviewType) | **DELETE** /reviewTypes/{reviewTypeId} | Delete the review type.
 
+### Reviews wrapper methods
+
+Method | HTTP request | Description
+------------- | ------------- | -------------
+[**searchReviews**](docs/ReviewsApi.md#searchReviews) | **GET** /reviews | Search reviews.
+[**headReviews**](docs/ReviewsApi.md#headReviews) | **HEAD** /reviews | Same to search reviews, but only response status and headers information return.
+[**createReview**](docs/ReviewsApi.md#createReview) | **POST** /reviews | Create a review.
+[**getReview**](docs/ReviewsApi.md#getReview) | **GET** /reviews/{reviewId} | Get the review.
+[**headReview**](docs/ReviewsApi.md#headReview) | **HEAD** /reviews/{reviewId} | Same to get review, but only response status and headers information return.
+[**updateReview**](docs/ReviewsApi.md#updateReview) | **PUT** /reviews/{reviewId} | Fully update review.
+[**patchReview**](docs/ReviewsApi.md#patchReview) | **PATCH** /reviews/{reviewId} | Partially update review.
+[**deleteReview**](docs/ReviewsApi.md#deleteReview) | **DELETE** /reviews/{reviewId} | Delete the review.
+
 ## Authorization
 
-Review Types wrapper internally generates a **JWT token using Auth0 credentials** and pass it in the `Authorization` header.
+The wrapper internally generates a **JWT token using Auth0 credentials** and pass it in the `Authorization` header.
 
 ## Running tests
 

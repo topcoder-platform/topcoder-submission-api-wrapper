@@ -1,7 +1,7 @@
 {
-  "name": "tc-submission-api-review-types-wrapper",
+  "name": "tc-submission-api-wrapper",
   "version": "1.0.0",
-  "description": "Wrapper for Topcoder Submission API ReviewTypes Endpoint",
+  "description": "Wrapper for Topcoder Submission API",
   "main": "index.js",
   "scripts": {
     "lint": "standard",

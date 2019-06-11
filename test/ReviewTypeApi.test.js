@@ -4,16 +4,8 @@
 
 const _ = require('lodash')
 const should = require('chai').should()
-
+const config = require('./testConfig')
 const api = require('../index')
-
-const config = {
-  AUTH0_CLIENT_ID: process.env.TEST_AUTH0_CLIENT_ID,
-  AUTH0_CLIENT_SECRET: process.env.TEST_AUTH0_CLIENT_SECRET,
-  AUTH0_URL: process.env.TEST_AUTH0_URL,
-  AUTH0_AUDIENCE: process.env.TEST_AUTH0_AUDIENCE,
-  SUBMISSION_API_URL: process.env.TEST_SUBMISSION_API_URL
-}
 
 const client = api(config)
 const failClient = api(_.assign(_.cloneDeep(config), { 'AUTH0_CLIENT_ID': 'invalid' }))
@@ -21,79 +13,6 @@ let reviewTypeId
 const notFoundId = 'e0a789ea-6144-4266-bfae-872f9a26e749'
 
 describe('Review Type API Tests', () => {
-  describe('Initialize Wrapper test', () => {
-    for (let key in config) {
-      it(`Configuration ${key} is missing`, () => {
-        let cfg = _.omit(_.cloneDeep(config), key)
-        try {
-          api(cfg)
-          throw new Error('should not throw error here')
-        } catch (err) {
-          should.equal(err.message, `"${key}" is required`)
-        }
-      })
-    }
-
-    for (let key of ['AUTH0_URL', 'AUTH0_AUDIENCE', 'SUBMISSION_API_URL']) {
-      it(`Configuration ${key} is invalid, it should be valid uri`, () => {
-        let cfg = _.cloneDeep(config)
-        cfg[key] = 'invalid'
-        try {
-          api(cfg)
-          throw new Error('should not throw error here')
-        } catch (err) {
-          should.equal(err.message, `"${key}" must be a valid uri`)
-        }
-      })
-    }
-
-    for (let key of ['AUTH0_CLIENT_ID', 'AUTH0_CLIENT_SECRET', 'AUTH0_PROXY_SERVER_URL']) {
-      it(`Configuration ${key} is invalid, it should be valid uri`, () => {
-        let cfg = _.cloneDeep(config)
-        cfg[key] = true
-        try {
-          api(cfg)
-          throw new Error('should not throw error here')
-        } catch (err) {
-          should.equal(err.message, `"${key}" must be a string`)
-        }
-      })
-    }
-
-    it(`Configuration TOKEN_CACHE_TIME is invalid, it should be number`, () => {
-      let cfg = _.cloneDeep(config)
-      cfg['TOKEN_CACHE_TIME'] = 'invalid'
-      try {
-        api(cfg)
-        throw new Error('should not throw error here')
-      } catch (err) {
-        should.equal(err.message, `"TOKEN_CACHE_TIME" must be a number`)
-      }
-    })
-
-    it(`Configuration TOKEN_CACHE_TIME is invalid, it should be an integer`, () => {
-      let cfg = _.cloneDeep(config)
-      cfg['TOKEN_CACHE_TIME'] = 123.45
-      try {
-        api(cfg)
-        throw new Error('should not throw error here')
-      } catch (err) {
-        should.equal(err.message, `"TOKEN_CACHE_TIME" must be an integer`)
-      }
-    })
-
-    it(`Configuration TOKEN_CACHE_TIME is invalid, it should not less than 0`, () => {
-      let cfg = _.cloneDeep(config)
-      cfg['TOKEN_CACHE_TIME'] = -1
-      try {
-        api(cfg)
-        throw new Error('should not throw error here')
-      } catch (err) {
-        should.equal(err.message, `"TOKEN_CACHE_TIME" must be larger than or equal to 0`)
-      }
-    })
-  })
-
   describe('Test search review types', () => {
     it(`search review types by criteria success`, async () => {
       const res = await client.searchReviewTypes({ page: 1, perPage: 3, name: 'Iterative Review', isActive: true })

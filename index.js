@@ -34,6 +34,8 @@ module.exports = (config) => {
 
   // Export functions
   return {
+    // -- review type APIs --
+
     // Search review types
     searchReviewTypes: async (reqQuery) => {
       return require('./src/ReviewTypesApi').searchReviewTypes(config, reqQuery)
@@ -65,6 +67,41 @@ module.exports = (config) => {
     // Delete review type
     deleteReviewType: async (reviewTypeId) => {
       return require('./src/ReviewTypesApi').deleteReviewType(config, reviewTypeId)
+    },
+
+    // -- review APIs --
+
+    // Search reviews
+    searchReviews: async (reqQuery) => {
+      return require('./src/ReviewsApi').searchReviews(config, reqQuery)
+    },
+    // Head reviews
+    headReviews: async (reqQuery) => {
+      return require('./src/ReviewsApi').headReviews(config, reqQuery)
+    },
+    // Create review
+    createReview: async (reqBody) => {
+      return require('./src/ReviewsApi').createReview(config, reqBody)
+    },
+    // Get review
+    getReview: async (reviewId) => {
+      return require('./src/ReviewsApi').getReview(config, reviewId)
+    },
+    // Head review
+    headReview: async (reviewId) => {
+      return require('./src/ReviewsApi').headReview(config, reviewId)
+    },
+    // Fully update review
+    updateReview: async (reviewId, reqBody) => {
+      return require('./src/ReviewsApi').updateReview(config, reviewId, reqBody)
+    },
+    // Partially update review
+    patchReview: async (reviewId, reqBody) => {
+      return require('./src/ReviewsApi').patchReview(config, reviewId, reqBody)
+    },
+    // Delete review
+    deleteReview: async (reviewId) => {
+      return require('./src/ReviewsApi').deleteReview(config, reviewId)
     }
   }
 }

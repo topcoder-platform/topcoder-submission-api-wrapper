@@ -1,23 +1,23 @@
-# Review Types Api
+# Reviews Api
 
 All URIs are relative to **SUBMISSION_API_URL** configuration variable.
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**searchReviewTypes**](ReviewTypesApi.md#searchReviewTypes) | **GET** /reviewTypes | Search review types.
-[**headReviewTypes**](ReviewTypesApi.md#headReviewTypes) | **HEAD** /reviewTypes | Same to search review types, but only response status and headers information return.
-[**createReviewType**](ReviewTypesApi.md#createReviewType) | **POST** /reviewTypes | Create a review type.
-[**getReviewType**](ReviewTypesApi.md#getReviewType) | **GET** /reviewTypes/{reviewTypeId} | Get the review type.
-[**headReviewType**](ReviewTypesApi.md#headReviewType) | **HEAD** /reviewTypes/{reviewTypeId} | Same to get review type, but only response status and headers information return.
-[**updateReviewType**](ReviewTypesApi.md#updateReviewType) | **PUT** /reviewTypes/{reviewTypeId} | Fully update review type.
-[**patchReviewType**](ReviewTypesApi.md#patchReviewType) | **PATCH** /reviewTypes/{reviewTypeId} | Partially update review type.
-[**deleteReviewType**](ReviewTypesApi.md#deleteReviewType) | **DELETE** /reviewTypes/{reviewTypeId} | Delete the review type.
+[**searchReviews**](ReviewsApi.md#searchReviews) | **GET** /reviews | Search reviews.
+[**headReviews**](ReviewsApi.md#headReviews) | **HEAD** /reviews | Same to search reviews, but only response status and headers information return.
+[**createReview**](ReviewsApi.md#createReview) | **POST** /reviews | Create a review.
+[**getReview**](ReviewsApi.md#getReview) | **GET** /reviews/{reviewId} | Get the review.
+[**headReview**](ReviewsApi.md#headReview) | **HEAD** /reviews/{reviewId} | Same to get review, but only response status and headers information return.
+[**updateReview**](ReviewsApi.md#updateReview) | **PUT** /reviews/{reviewId} | Fully update review.
+[**patchReview**](ReviewsApi.md#patchReview) | **PATCH** /reviews/{reviewId} | Partially update review.
+[**deleteReview**](ReviewsApi.md#deleteReview) | **DELETE** /reviews/{reviewId} | Delete the review.
 
-<a name="searchReviewTypes"></a>
-# **searchReviewTypes**
-> searchReviewTypes(reqQuery)
+<a name="searchReviews"></a>
+# **searchReviews**
+> searchReviews(reqQuery)
 
-Search review types. Link headers are sent back and they have rel set to prev, next, first, last and contain the relevant URL.
+Search reviews. Link headers are sent back and they have rel set to prev, next, first, last and contain the relevant URL.
 
 ### Example
 ```javascript
@@ -30,29 +30,28 @@ const submissionApiClient = submissionApi(_.pick(config,
 const reqQuery = {
   page: 1,
   perPage: 10,
-  name: 'Review',
-  isActive: true
+  typeId: '8f4e8b6a-0ad2-4ff6-ab19-afeb102ff3b1'
 }
 
 // Promise model
 submissionApiClient
-  .searchReviewTypes(reqQuery)
+  .searchReviews(reqQuery)
   .then(result => console.log(result.body, result.status))
   .catch(err => console.log(err))
 
 // Async / await model
-await submissionApiClient.searchReviewTypes(reqQuery)
+await submissionApiClient.searchReviews(reqQuery)
 ```
 
 ### Parameters
 
 Name | Type | Description
 ------------- | ------------- | -------------
- **reqQuery** | [**Criteria**](Criteria.md)| the search criteria
+ **reqQuery** | [**SearchReviewsCriteria**](SearchReviewsCriteria.md)| the search reviews criteria
 
 ### Return type
 
-Array of [**ReviewType**](ReviewType.md)
+Array of [**Review**](Review.md)
 
 ### Authorization
 
@@ -63,11 +62,11 @@ Array of [**ReviewType**](ReviewType.md)
  - **Content-Type**: application/json
  - **Accept**: application/json
 
-<a name="headReviewTypes"></a>
-# **headReviewTypes**
-> headReviewTypes(reqQuery)
+<a name="headReviews"></a>
+# **headReviews**
+> headReviews(reqQuery)
 
-Same to search review types, but only response status and headers information return.
+Same to search reviews, but only response status and headers information return.
 
 ### Example
 ```javascript
@@ -80,25 +79,24 @@ const submissionApiClient = submissionApi(_.pick(config,
 const reqQuery = {
   page: 1,
   perPage: 10,
-  name: 'Review',
-  isActive: true
+  typeId: '8f4e8b6a-0ad2-4ff6-ab19-afeb102ff3b4'
 }
 
 // Promise model
 submissionApiClient
-  .headReviewTypes(reqQuery)
+  .headReviews(reqQuery)
   .then(result => console.log(result.status))
   .catch(err => console.log(err))
 
 // Async / await model
-await submissionApiClient.headReviewTypes(reqQuery)
+await submissionApiClient.headReviews(reqQuery)
 ```
 
 ### Parameters
 
 Name | Type | Description
 ------------- | ------------- | -------------
- **reqQuery** | [**Criteria**](Criteria.md)| the search criteria
+ **reqQuery** | [**SearchReviewsCriteria**](SearchReviewsCriteria.md)| the search reviews criteria
 
 ### Return type
 
@@ -113,11 +111,11 @@ null (empty response body)
  - **Content-Type**: application/json
  - **Accept**: application/json
 
-<a name="createReviewType"></a>
-# **createReviewType**
-> createReviewType(reqBody)
+<a name="createReview"></a>
+# **createReview**
+> createReview(reqBody)
 
-Create a review type.
+Create a review.
 
 ### Example
 ```javascript
@@ -128,29 +126,33 @@ const submissionApiClient = submissionApi(_.pick(config,
         'AUTH0_PROXY_SERVER_URL']))
 
 const reqBody = {
-  name: 'Review',
-  isActive: true
+  score: 89,
+  reviewerId: 'a3d891ef-4002-48fc-ae35-e8623e6bd4b9',
+  submissionId: 'e328821a-6829-4214-b0d4-d7f7bf44dc98',
+  scoreCardId: 30001850,
+  typeId: '68c5a381-c8ab-48af-92a7-7a869a4ee6c3',
+  metadata: { abc: 'def' }
 }
 
 // Promise model
 submissionApiClient
-  .createReviewType(reqBody)
+  .createReview(reqBody)
   .then(result => console.log(result.body, result.status))
   .catch(err => console.log(err))
 
 // Async / await model
-await submissionApiClient.createReviewType(reqBody)
+await submissionApiClient.createReview(reqBody)
 ```
 
 ### Parameters
 
 Name | Type | Description
 ------------- | ------------- | -------------
- **reqBody** | [**ReviewTypeData**](ReviewTypeData.md)| the review type data
+ **reqBody** | [**ReviewData**](ReviewData.md)| the review data
 
 ### Return type
 
-[**ReviewType**](ReviewType.md)
+[**Review**](Review.md)
 
 ### Authorization
 
@@ -161,11 +163,11 @@ Name | Type | Description
  - **Content-Type**: application/json
  - **Accept**: application/json
 
-<a name="getReviewType"></a>
-# **getReviewType**
-> getReviewType(reviewTypeId)
+<a name="getReview"></a>
+# **getReview**
+> getReview(reviewId)
 
-Get the review type by id.
+Get the review by id.
 
 ### Example
 ```javascript
@@ -175,26 +177,26 @@ const submissionApiClient = submissionApi(_.pick(config,
         'AUTH0_CLIENT_ID', 'AUTH0_CLIENT_SECRET', 'SUBMISSION_API_URL',
         'AUTH0_PROXY_SERVER_URL']))
 
-const reviewTypeId = '8f4e8b6a-0ad2-4ff6-ab19-afeb102ff3b4'
+const reviewId = '8f4e8b6a-0ad2-4ff6-ab19-afeb102ff3b4'
 
 // Promise model
 submissionApiClient
-  .getReviewType(reviewTypeId)
+  .getReview(reviewId)
   .then(result => console.log(result.body, result.status))
   .catch(err => console.log(err))
 
 // Async / await model
-await submissionApiClient.getReviewType(reviewTypeId)
+await submissionApiClient.getReview(reviewId)
 ```
 ### Parameters
 
 Name | Type | Description
 ------------- | ------------- | -------------
- **reviewTypeId** | String | the review type id
+ **reviewId** | String | the review id
 
 ### Return type
 
-[**ReviewType**](ReviewType.md)
+[**Review**](Review.md)
 
 ### Authorization
 
@@ -205,11 +207,11 @@ Name | Type | Description
  - **Content-Type**: application/json
  - **Accept**: application/json
 
-<a name="headReviewType"></a>
-# **headReviewType**
-> headReviewType(reviewTypeId)
+<a name="headReview"></a>
+# **headReview**
+> headReview(reviewId)
 
-Same to get review type, but only response status and headers information return.
+Same to get review, but only response status and headers information return.
 
 ### Example
 ```javascript
@@ -219,27 +221,27 @@ const submissionApiClient = submissionApi(_.pick(config,
         'AUTH0_CLIENT_ID', 'AUTH0_CLIENT_SECRET', 'SUBMISSION_API_URL',
         'AUTH0_PROXY_SERVER_URL']))
 
-const reviewTypeId = '8f4e8b6a-0ad2-4ff6-ab19-afeb102ff3b4'
+const reviewId = '8f4e8b6a-0ad2-4ff6-ab19-afeb102ff3b4'
 
 // Promise model
 submissionApiClient
-  .headReviewType(reviewTypeId)
+  .headReview(reviewId)
   .then(result => console.log(result.status))
   .catch(err => console.log(err))
 
 // Async / await model
-await submissionApiClient.headReviewType(reviewTypeId)
+await submissionApiClient.headReview(reviewId)
 ```
 
 ### Parameters
 
 Name | Type | Description
 ------------- | ------------- | -------------
- **reviewTypeId** | String | the review type id
+ **reviewId** | String | the review id
 
 ### Return type
 
-[**ReviewType**](ReviewType.md)
+[**Review**](Review.md)
 
 ### Authorization
 
@@ -250,11 +252,11 @@ Name | Type | Description
  - **Content-Type**: application/json
  - **Accept**: application/json
 
-<a name="updateReviewType"></a>
-# **updateReviewType**
-> updateReviewType(reviewTypeId, reqBody)
+<a name="updateReview"></a>
+# **updateReview**
+> updateReview(reviewId, reqBody)
 
-Fully update review type.
+Fully update review.
 
 ### Example
 ```javascript
@@ -264,32 +266,36 @@ const submissionApiClient = submissionApi(_.pick(config,
         'AUTH0_CLIENT_ID', 'AUTH0_CLIENT_SECRET', 'SUBMISSION_API_URL',
         'AUTH0_PROXY_SERVER_URL']))
 
-const reviewTypeId = '8f4e8b6a-0ad2-4ff6-ab19-afeb102ff3b4'
+const reviewId = '8f4e8b6a-0ad2-4ff6-ab19-afeb102ff3b4'
 const reqBody = {
-  name: 'Review',
-  isActive: true
+  score: 100,
+  reviewerId: 'a3d891ef-4002-48fc-ae35-e8623e6bd4b9',
+  submissionId: 'e328821a-6829-4214-b0d4-d7f7bf44dc98',
+  scoreCardId: 30001850,
+  typeId: '68c5a381-c8ab-48af-92a7-7a869a4ee6c3',
+  metadata: { abc: 'xyz' }
 }
 
 // Promise model
 submissionApiClient
-  .updateReviewType(reviewTypeId, reqBody)
+  .updateReview(reviewId, reqBody)
   .then(result => console.log(result.body, result.status))
   .catch(err => console.log(err))
 
 // Async / await model
-await submissionApiClient.updateReviewType(reviewTypeId, reqBody)
+await submissionApiClient.updateReview(reviewId, reqBody)
 ```
 
 ### Parameters
 
 Name | Type | Description
 ------------- | ------------- | -------------
- **reviewTypeId** | String | the review type id
- **reqBody** | [**ReviewTypeData**](ReviewTypeData.md)| the review type data
+ **reviewId** | String | the review id
+ **reqBody** | [**ReviewData**](ReviewData.md)| the review data
 
 ### Return type
 
-[**ReviewType**](ReviewType.md)
+[**Review**](Review.md)
 
 ### Authorization
 
@@ -300,11 +306,11 @@ Name | Type | Description
  - **Content-Type**: application/json
  - **Accept**: application/json
 
-<a name="patchReviewType"></a>
-# **patchReviewType**
-> patchReviewType(reviewTypeId, reqBody)
+<a name="patchReview"></a>
+# **patchReview**
+> patchReview(reviewId, reqBody)
 
-Partially update review type.
+Partially update review.
 
 ### Example
 ```javascript
@@ -314,32 +320,34 @@ const submissionApiClient = submissionApi(_.pick(config,
         'AUTH0_CLIENT_ID', 'AUTH0_CLIENT_SECRET', 'SUBMISSION_API_URL',
         'AUTH0_PROXY_SERVER_URL']))
 
-const reviewTypeId = '8f4e8b6a-0ad2-4ff6-ab19-afeb102ff3b4'
+const reviewId = '8f4e8b6a-0ad2-4ff6-ab19-afeb102ff3b4'
 const reqBody = {
-  name: 'Review',
-  isActive: true
+  score: 99,
+  reviewerId: 'a3d891ef-4002-48fc-ae35-e8623e6bd4b9',
+  typeId: '68c5a381-c8ab-48af-92a7-7a869a4ee6c3',
+  metadata: { abc: 'def' }
 }
 
 // Promise model
 submissionApiClient
-  .patchReviewType(reviewTypeId, reqBody)
+  .patchReview(reviewId, reqBody)
   .then(result => console.log(result.body, result.status))
   .catch(err => console.log(err))
 
 // Async / await model
-await submissionApiClient.patchReviewType(reviewTypeId, reqBody)
+await submissionApiClient.patchReview(reviewId, reqBody)
 ```
 
 ### Parameters
 
 Name | Type | Description
 ------------- | ------------- | -------------
- **reviewTypeId** | String | the review type id
- **reqBody** | [**ReviewTypeData**](ReviewTypeData.md)| the review type data
+ **reviewId** | String | the review id
+ **reqBody** | [**ReviewData**](ReviewData.md)| the review data
 
 ### Return type
 
-[**ReviewType**](ReviewType.md)
+[**Review**](Review.md)
 
 ### Authorization
 
@@ -350,11 +358,11 @@ Name | Type | Description
  - **Content-Type**: application/json
  - **Accept**: application/json
 
-<a name="deleteReviewType"></a>
-# **deleteReviewType**
-> deleteReviewType(reviewTypeId)
+<a name="deleteReview"></a>
+# **deleteReview**
+> deleteReview(reviewId)
 
-Delete review type by id.
+Delete review by id.
 
 ### Example
 ```javascript
@@ -364,23 +372,23 @@ const submissionApiClient = submissionApi(_.pick(config,
         'AUTH0_CLIENT_ID', 'AUTH0_CLIENT_SECRET', 'SUBMISSION_API_URL',
         'AUTH0_PROXY_SERVER_URL']))
 
-const reviewTypeId = '8f4e8b6a-0ad2-4ff6-ab19-afeb102ff3b4'
+const reviewId = '8f4e8b6a-0ad2-4ff6-ab19-afeb102ff3b4'
 
 // Promise model
 submissionApiClient
-  .deleteReviewType(reviewTypeId)
+  .deleteReview(reviewId)
   .then(result => console.log(result.status))
   .catch(err => console.log(err))
 
 // Async / await model
-await submissionApiClient.deleteReviewType(reviewTypeId)
+await submissionApiClient.deleteReview(reviewId)
 ```
 
 ### Parameters
 
 Name | Type | Description
 ------------- | ------------- | -------------
- **reviewTypeId** | String | the review type id
+ **reviewId** | String | the review id
 
 ### Return type
 
