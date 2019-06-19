@@ -1,5 +1,0 @@
-export TEST_AUTH0_URL='https://topcoder-dev.auth0.com/oauth/token'
-export TEST_AUTH0_CLIENT_ID='maE2maBSv9fRVHjSlC31LFZSq6VhhZqC'
-export TEST_AUTH0_CLIENT_SECRET='v3dcgVp4-_Lgk-8UhyekOA7CyyBvFBl1xipl97QqeGy3WyTk3poyvpsDC0sRAKoo'
-export TEST_AUTH0_AUDIENCE='https://m2m.topcoder-dev.com/'
-export TEST_SUBMISSION_API_URL='https://api.topcoder-dev.com/v5'
