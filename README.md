@@ -12,7 +12,7 @@ Wrapper library for Topcoder Submission API
 
 2. Create an instance of this wrapper with the configuration variables listed below
 
-    ```bash
+    ```javascript
     const submissionApi = require('tc-submission-api-wrapper')
     const submissionApiClient = submissionApi(_.pick(config,
           ['AUTH0_URL', 'AUTH0_AUDIENCE', 'TOKEN_CACHE_TIME',
@@ -78,6 +78,19 @@ Method | HTTP request | Description
 [**updateReview**](docs/ReviewsApi.md#updateReview) | **PUT** /reviews/{reviewId} | Fully update review.
 [**patchReview**](docs/ReviewsApi.md#patchReview) | **PATCH** /reviews/{reviewId} | Partially update review.
 [**deleteReview**](docs/ReviewsApi.md#deleteReview) | **DELETE** /reviews/{reviewId} | Delete the review.
+
+### Review Summations wrapper methods
+
+Method | HTTP request | Description
+------------- | ------------- | -------------
+[**searchReviewSummations**](docs/ReviewSummationsApi.md#searchReviewSummations) | **GET** /reviewSummations | Search review summations.
+[**headReviewSummations**](docs/ReviewSummationsApi.md#headReviewSummations) | **HEAD** /reviewSummations | Same to search review summations, but only response status and headers information return.
+[**createReviewSummation**](docs/ReviewSummationsApi.md#createReviewSummation) | **POST** /reviewSummations | Create a review summation.
+[**getReviewSummation**](docs/ReviewSummationsApi.md#getReviewSummation) | **GET** /reviewSummations/{reviewSummationId} | Get the review summation.
+[**headReviewSummation**](docs/ReviewSummationsApi.md#headReviewSummation) | **HEAD** /reviewSummations/{reviewSummationId} | Same to get review summation, but only response status and headers information return.
+[**updateReviewSummation**](docs/ReviewSummationsApi.md#updateReviewSummation) | **PUT** /reviewSummations/{reviewSummationId} | Fully update review summation.
+[**patchReviewSummation**](docs/ReviewSummationsApi.md#patchReviewSummation) | **PATCH** /reviewSummations/{reviewSummationId} | Partially update review summation.
+[**deleteReviewSummation**](docs/ReviewSummationsApi.md#deleteReviewSummation) | **DELETE** /reviewSummations/{reviewSummationId} | Delete the review summation.
 
 ## Authorization
 

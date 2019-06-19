@@ -102,6 +102,41 @@ module.exports = (config) => {
     // Delete review
     deleteReview: async (reviewId) => {
       return require('./src/ReviewsApi').deleteReview(config, reviewId)
+    },
+
+    // -- review summation APIs --
+
+    // Search review summations
+    searchReviewSummations: async (reqQuery) => {
+      return require('./src/ReviewSummationsApi').searchReviewSummations(config, reqQuery)
+    },
+    // Head review summations
+    headReviewSummations: async (reqQuery) => {
+      return require('./src/ReviewSummationsApi').headReviewSummations(config, reqQuery)
+    },
+    // Create review summation
+    createReviewSummation: async (reqBody) => {
+      return require('./src/ReviewSummationsApi').createReviewSummation(config, reqBody)
+    },
+    // Get review summation
+    getReviewSummation: async (reviewSummationId) => {
+      return require('./src/ReviewSummationsApi').getReviewSummation(config, reviewSummationId)
+    },
+    // Head review summation
+    headReviewSummation: async (reviewSummationId) => {
+      return require('./src/ReviewSummationsApi').headReviewSummation(config, reviewSummationId)
+    },
+    // Fully update review summation
+    updateReviewSummation: async (reviewSummationId, reqBody) => {
+      return require('./src/ReviewSummationsApi').updateReviewSummation(config, reviewSummationId, reqBody)
+    },
+    // Partially update review summation
+    patchReviewSummation: async (reviewSummationId, reqBody) => {
+      return require('./src/ReviewSummationsApi').patchReviewSummation(config, reviewSummationId, reqBody)
+    },
+    // Delete review summation
+    deleteReviewSummation: async (reviewSummationId) => {
+      return require('./src/ReviewSummationsApi').deleteReviewSummation(config, reviewSummationId)
     }
   }
 }
