@@ -1,6 +1,7 @@
 # ReviewData
 
 ## Properties
+
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **score** | **Number** | The review score. |

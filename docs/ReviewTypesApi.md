@@ -21,7 +21,7 @@ Search review types. Link headers are sent back and they have rel set to prev, n
 
 ### Example
 ```javascript
-const submissionApi = require('tc-submission-api-wrapper')
+const submissionApi = require('topcoder-submission-api-wrapper')
 const submissionApiClient = submissionApi(_.pick(config,
       ['AUTH0_URL', 'AUTH0_AUDIENCE', 'TOKEN_CACHE_TIME',
         'AUTH0_CLIENT_ID', 'AUTH0_CLIENT_SECRET', 'SUBMISSION_API_URL',
@@ -71,7 +71,7 @@ Same to search review types, but only response status and headers information re
 
 ### Example
 ```javascript
-const submissionApi = require('tc-submission-api-wrapper')
+const submissionApi = require('topcoder-submission-api-wrapper')
 const submissionApiClient = submissionApi(_.pick(config,
       ['AUTH0_URL', 'AUTH0_AUDIENCE', 'TOKEN_CACHE_TIME',
         'AUTH0_CLIENT_ID', 'AUTH0_CLIENT_SECRET', 'SUBMISSION_API_URL',
@@ -121,7 +121,7 @@ Create a review type.
 
 ### Example
 ```javascript
-const submissionApi = require('tc-submission-api-wrapper')
+const submissionApi = require('topcoder-submission-api-wrapper')
 const submissionApiClient = submissionApi(_.pick(config,
       ['AUTH0_URL', 'AUTH0_AUDIENCE', 'TOKEN_CACHE_TIME',
         'AUTH0_CLIENT_ID', 'AUTH0_CLIENT_SECRET', 'SUBMISSION_API_URL',
@@ -169,7 +169,7 @@ Get the review type by id.
 
 ### Example
 ```javascript
-const submissionApi = require('tc-submission-api-wrapper')
+const submissionApi = require('topcoder-submission-api-wrapper')
 const submissionApiClient = submissionApi(_.pick(config,
       ['AUTH0_URL', 'AUTH0_AUDIENCE', 'TOKEN_CACHE_TIME',
         'AUTH0_CLIENT_ID', 'AUTH0_CLIENT_SECRET', 'SUBMISSION_API_URL',
@@ -213,7 +213,7 @@ Same to get review type, but only response status and headers information return
 
 ### Example
 ```javascript
-const submissionApi = require('tc-submission-api-wrapper')
+const submissionApi = require('topcoder-submission-api-wrapper')
 const submissionApiClient = submissionApi(_.pick(config,
       ['AUTH0_URL', 'AUTH0_AUDIENCE', 'TOKEN_CACHE_TIME',
         'AUTH0_CLIENT_ID', 'AUTH0_CLIENT_SECRET', 'SUBMISSION_API_URL',
@@ -239,7 +239,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ReviewType**](ReviewType.md)
+null (empty response body)
 
 ### Authorization
 
@@ -258,7 +258,7 @@ Fully update review type.
 
 ### Example
 ```javascript
-const submissionApi = require('tc-submission-api-wrapper')
+const submissionApi = require('topcoder-submission-api-wrapper')
 const submissionApiClient = submissionApi(_.pick(config,
       ['AUTH0_URL', 'AUTH0_AUDIENCE', 'TOKEN_CACHE_TIME',
         'AUTH0_CLIENT_ID', 'AUTH0_CLIENT_SECRET', 'SUBMISSION_API_URL',
@@ -308,7 +308,7 @@ Partially update review type.
 
 ### Example
 ```javascript
-const submissionApi = require('tc-submission-api-wrapper')
+const submissionApi = require('topcoder-submission-api-wrapper')
 const submissionApiClient = submissionApi(_.pick(config,
       ['AUTH0_URL', 'AUTH0_AUDIENCE', 'TOKEN_CACHE_TIME',
         'AUTH0_CLIENT_ID', 'AUTH0_CLIENT_SECRET', 'SUBMISSION_API_URL',
@@ -358,7 +358,7 @@ Delete review type by id.
 
 ### Example
 ```javascript
-const submissionApi = require('tc-submission-api-wrapper')
+const submissionApi = require('topcoder-submission-api-wrapper')
 const submissionApiClient = submissionApi(_.pick(config,
       ['AUTH0_URL', 'AUTH0_AUDIENCE', 'TOKEN_CACHE_TIME',
         'AUTH0_CLIENT_ID', 'AUTH0_CLIENT_SECRET', 'SUBMISSION_API_URL',

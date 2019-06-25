@@ -1,5 +1,5 @@
 {
-  "name": "tc-submission-api-wrapper",
+  "name": "topcoder-submission-api-wrapper",
   "version": "1.0.0",
   "description": "Wrapper for Topcoder Submission API",
   "main": "index.js",
