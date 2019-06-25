@@ -18,7 +18,7 @@ const getM2Mtoken = async (config) => {
  * Function to send request to V5 API
  * @param {Object} config Configuration object
  * @param{String} reqType Type of the request POST / PATCH / PUT / GET / DELETE / HEAD
- * @param(String) path Complete path of the review types API URL
+ * @param(String) path Complete path of the API URL
  * @param{Object} reqBody Body of the request
  * @returns {Promise}
  */
@@ -65,6 +65,58 @@ const reqToV5API = async (config, reqType, path, reqBody) => {
   })
 }
 
+/**
+ * Function to send request to V5 API with file
+ * @param {Object} config Configuration object
+ * @param (String) path Complete path of the API URL
+ * @param {Object} formData multiple part form data
+ * @param {String} the file field name in formData
+ * @returns {Promise}
+ */
+const reqToV5APIWithFile = async (config, path, formData, fileFieldName) => {
+  const token = await getM2Mtoken(config)
+  if (formData[fileFieldName] && formData[fileFieldName].data && formData[fileFieldName].name) {
+    return request
+      .post(path)
+      .set('Authorization', `Bearer ${token}`)
+      .field(_.omit(formData, fileFieldName))
+      .attach(fileFieldName, formData[fileFieldName].data, formData[fileFieldName].name)
+  } else {
+    return request
+      .post(path)
+      .set('Authorization', `Bearer ${token}`)
+      .field(_.omit(formData, fileFieldName))
+  }
+}
+
+/**
+ * Function to download file using V5 API
+ * @param {Object} config Configuration object
+ * @param (String) path Complete path of the API URL
+ * @returns {Promise}
+ */
+const reqToV5APIDownload = async (config, path) => {
+  const token = await getM2Mtoken(config)
+  return request
+    .get(path)
+    .set('Authorization', `Bearer ${token}`)
+    .buffer(true)
+    .parse(function (res, callback) {
+      res.data = ''
+      res.setEncoding('binary')
+      res.on('data', function (chunk) {
+        res.data += chunk
+      })
+      res.on('end', function () {
+        if (/application\/json/.test(res.headers['content-type'])) {
+          callback(null, JSON.parse(res.data))
+        } else {
+          callback(null, Buffer.from(res.data, 'binary'))
+        }
+      })
+    })
+}
+
 /*
  * Function to build URL with query parameters
  * @param {String} url Bus API URL
@@ -83,5 +135,7 @@ const buildURLwithParams = (url, params) => {
 
 module.exports = {
   reqToV5API,
-  buildURLwithParams
+  buildURLwithParams,
+  reqToV5APIWithFile,
+  reqToV5APIDownload
 }

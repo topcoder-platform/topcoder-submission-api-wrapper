@@ -21,7 +21,7 @@ Search reviews. Link headers are sent back and they have rel set to prev, next, 
 
 ### Example
 ```javascript
-const submissionApi = require('tc-submission-api-wrapper')
+const submissionApi = require('topcoder-submission-api-wrapper')
 const submissionApiClient = submissionApi(_.pick(config,
       ['AUTH0_URL', 'AUTH0_AUDIENCE', 'TOKEN_CACHE_TIME',
         'AUTH0_CLIENT_ID', 'AUTH0_CLIENT_SECRET', 'SUBMISSION_API_URL',
@@ -70,7 +70,7 @@ Same to search reviews, but only response status and headers information return.
 
 ### Example
 ```javascript
-const submissionApi = require('tc-submission-api-wrapper')
+const submissionApi = require('topcoder-submission-api-wrapper')
 const submissionApiClient = submissionApi(_.pick(config,
       ['AUTH0_URL', 'AUTH0_AUDIENCE', 'TOKEN_CACHE_TIME',
         'AUTH0_CLIENT_ID', 'AUTH0_CLIENT_SECRET', 'SUBMISSION_API_URL',
@@ -119,7 +119,7 @@ Create a review.
 
 ### Example
 ```javascript
-const submissionApi = require('tc-submission-api-wrapper')
+const submissionApi = require('topcoder-submission-api-wrapper')
 const submissionApiClient = submissionApi(_.pick(config,
       ['AUTH0_URL', 'AUTH0_AUDIENCE', 'TOKEN_CACHE_TIME',
         'AUTH0_CLIENT_ID', 'AUTH0_CLIENT_SECRET', 'SUBMISSION_API_URL',
@@ -171,7 +171,7 @@ Get the review by id.
 
 ### Example
 ```javascript
-const submissionApi = require('tc-submission-api-wrapper')
+const submissionApi = require('topcoder-submission-api-wrapper')
 const submissionApiClient = submissionApi(_.pick(config,
       ['AUTH0_URL', 'AUTH0_AUDIENCE', 'TOKEN_CACHE_TIME',
         'AUTH0_CLIENT_ID', 'AUTH0_CLIENT_SECRET', 'SUBMISSION_API_URL',
@@ -215,7 +215,7 @@ Same to get review, but only response status and headers information return.
 
 ### Example
 ```javascript
-const submissionApi = require('tc-submission-api-wrapper')
+const submissionApi = require('topcoder-submission-api-wrapper')
 const submissionApiClient = submissionApi(_.pick(config,
       ['AUTH0_URL', 'AUTH0_AUDIENCE', 'TOKEN_CACHE_TIME',
         'AUTH0_CLIENT_ID', 'AUTH0_CLIENT_SECRET', 'SUBMISSION_API_URL',
@@ -241,7 +241,7 @@ Name | Type | Description
 
 ### Return type
 
-[**Review**](Review.md)
+null (empty response body)
 
 ### Authorization
 
@@ -260,7 +260,7 @@ Fully update review.
 
 ### Example
 ```javascript
-const submissionApi = require('tc-submission-api-wrapper')
+const submissionApi = require('topcoder-submission-api-wrapper')
 const submissionApiClient = submissionApi(_.pick(config,
       ['AUTH0_URL', 'AUTH0_AUDIENCE', 'TOKEN_CACHE_TIME',
         'AUTH0_CLIENT_ID', 'AUTH0_CLIENT_SECRET', 'SUBMISSION_API_URL',
@@ -314,7 +314,7 @@ Partially update review.
 
 ### Example
 ```javascript
-const submissionApi = require('tc-submission-api-wrapper')
+const submissionApi = require('topcoder-submission-api-wrapper')
 const submissionApiClient = submissionApi(_.pick(config,
       ['AUTH0_URL', 'AUTH0_AUDIENCE', 'TOKEN_CACHE_TIME',
         'AUTH0_CLIENT_ID', 'AUTH0_CLIENT_SECRET', 'SUBMISSION_API_URL',
@@ -366,7 +366,7 @@ Delete review by id.
 
 ### Example
 ```javascript
-const submissionApi = require('tc-submission-api-wrapper')
+const submissionApi = require('topcoder-submission-api-wrapper')
 const submissionApiClient = submissionApi(_.pick(config,
       ['AUTH0_URL', 'AUTH0_AUDIENCE', 'TOKEN_CACHE_TIME',
         'AUTH0_CLIENT_ID', 'AUTH0_CLIENT_SECRET', 'SUBMISSION_API_URL',

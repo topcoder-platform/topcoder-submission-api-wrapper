@@ -21,7 +21,7 @@ Search review summations. Link headers are sent back and they have rel set to pr
 
 ### Example
 ```javascript
-const submissionApi = require('tc-submission-api-wrapper')
+const submissionApi = require('topcoder-submission-api-wrapper')
 const submissionApiClient = submissionApi(_.pick(config,
       ['AUTH0_URL', 'AUTH0_AUDIENCE', 'TOKEN_CACHE_TIME',
         'AUTH0_CLIENT_ID', 'AUTH0_CLIENT_SECRET', 'SUBMISSION_API_URL',
@@ -50,7 +50,7 @@ await submissionApiClient.searchReviewSummations(reqQuery)
 
 Name | Type | Description
 ------------- | ------------- | -------------
- **reqQuery** | [**SearchReviewSummationsCriteria**](SearchReviewSummationsCriteria.md) | the search review summations criteria 
+ **reqQuery** | [**SearchReviewSummationsCriteria**](SearchReviewSummationsCriteria.md) | the search review summations criteria
 
 ### Return type
 
@@ -74,7 +74,7 @@ Same to search review summations, but only response status and headers informati
 
 ### Example
 ```javascript
-const submissionApi = require('tc-submission-api-wrapper')
+const submissionApi = require('topcoder-submission-api-wrapper')
 const submissionApiClient = submissionApi(_.pick(config,
       ['AUTH0_URL', 'AUTH0_AUDIENCE', 'TOKEN_CACHE_TIME',
         'AUTH0_CLIENT_ID', 'AUTH0_CLIENT_SECRET', 'SUBMISSION_API_URL',
@@ -127,7 +127,7 @@ Create a review summation.
 
 ### Example
 ```javascript
-const submissionApi = require('tc-submission-api-wrapper')
+const submissionApi = require('topcoder-submission-api-wrapper')
 const submissionApiClient = submissionApi(_.pick(config,
       ['AUTH0_URL', 'AUTH0_AUDIENCE', 'TOKEN_CACHE_TIME',
         'AUTH0_CLIENT_ID', 'AUTH0_CLIENT_SECRET', 'SUBMISSION_API_URL',
@@ -155,7 +155,7 @@ await submissionApiClient.createReviewSummation(reqBody)
 
 Name | Type | Description
 ------------- | ------------- | -------------
- **reqBody** | [**ReviewSummationData**](ReviewSummationData.md) | the review summation data 
+ **reqBody** | [**ReviewSummationData**](ReviewSummationData.md) | the review summation data
 
 ### Return type
 
@@ -179,7 +179,7 @@ Get the review summation by id.
 
 ### Example
 ```javascript
-const submissionApi = require('tc-submission-api-wrapper')
+const submissionApi = require('topcoder-submission-api-wrapper')
 const submissionApiClient = submissionApi(_.pick(config,
       ['AUTH0_URL', 'AUTH0_AUDIENCE', 'TOKEN_CACHE_TIME',
         'AUTH0_CLIENT_ID', 'AUTH0_CLIENT_SECRET', 'SUBMISSION_API_URL',
@@ -200,7 +200,7 @@ await submissionApiClient.getReviewSummation(reviewSummationId)
 
 Name | Type | Description
 ------------- | ------------- | -------------
- **reviewSummationId** | String | the review summation id 
+ **reviewSummationId** | String | the review summation id
 
 ### Return type
 
@@ -224,7 +224,7 @@ Same to get review summation, but only response status and headers information r
 
 ### Example
 ```javascript
-const submissionApi = require('tc-submission-api-wrapper')
+const submissionApi = require('topcoder-submission-api-wrapper')
 const submissionApiClient = submissionApi(_.pick(config,
       ['AUTH0_URL', 'AUTH0_AUDIENCE', 'TOKEN_CACHE_TIME',
         'AUTH0_CLIENT_ID', 'AUTH0_CLIENT_SECRET', 'SUBMISSION_API_URL',
@@ -246,11 +246,11 @@ await submissionApiClient.headReviewSummation(reviewId)
 
 Name | Type | Description
 ------------- | ------------- | -------------
- **reviewSummationId** | String | the review summation id 
+ **reviewSummationId** | String | the review summation id
 
 ### Return type
 
-[**ReviewSummation**](ReviewSummation.md)
+null (empty response body)
 
 ### Authorization
 
@@ -270,7 +270,7 @@ Fully update review summation.
 
 ### Example
 ```javascript
-const submissionApi = require('tc-submission-api-wrapper')
+const submissionApi = require('topcoder-submission-api-wrapper')
 const submissionApiClient = submissionApi(_.pick(config,
       ['AUTH0_URL', 'AUTH0_AUDIENCE', 'TOKEN_CACHE_TIME',
         'AUTH0_CLIENT_ID', 'AUTH0_CLIENT_SECRET', 'SUBMISSION_API_URL',
@@ -299,8 +299,8 @@ await submissionApiClient.updateReviewSummation(reviewSummationId, reqBody)
 
 Name | Type | Description
 ------------- | ------------- | -------------
- **reviewSummationId** | String | the review summation id 
- **reqBody** | [**ReviewSummationData**](ReviewSummationData.md) | the review summation data 
+ **reviewSummationId** | String | the review summation id
+ **reqBody** | [**ReviewSummationData**](ReviewSummationData.md) | the review summation data
 
 ### Return type
 
@@ -324,7 +324,7 @@ Partially update review summation.
 
 ### Example
 ```javascript
-const submissionApi = require('tc-submission-api-wrapper')
+const submissionApi = require('topcoder-submission-api-wrapper')
 const submissionApiClient = submissionApi(_.pick(config,
       ['AUTH0_URL', 'AUTH0_AUDIENCE', 'TOKEN_CACHE_TIME',
         'AUTH0_CLIENT_ID', 'AUTH0_CLIENT_SECRET', 'SUBMISSION_API_URL',
@@ -350,8 +350,8 @@ await submissionApiClient.patchReviewSummation(reviewSummationId, reqBody)
 
 Name | Type | Description
 ------------- | ------------- | -------------
- **reviewSummationId** | String | the review summation id 
- **reqBody** | [**ReviewSummationData**](ReviewSummationData.md) | the review summation data 
+ **reviewSummationId** | String | the review summation id
+ **reqBody** | [**ReviewSummationData**](ReviewSummationData.md) | the review summation data
 
 ### Return type
 
@@ -375,7 +375,7 @@ Delete review summation by id.
 
 ### Example
 ```javascript
-const submissionApi = require('tc-submission-api-wrapper')
+const submissionApi = require('topcoder-submission-api-wrapper')
 const submissionApiClient = submissionApi(_.pick(config,
       ['AUTH0_URL', 'AUTH0_AUDIENCE', 'TOKEN_CACHE_TIME',
         'AUTH0_CLIENT_ID', 'AUTH0_CLIENT_SECRET', 'SUBMISSION_API_URL',
@@ -397,7 +397,7 @@ await submissionApiClient.deleteReviewSummation(reviewSummationId)
 
 Name | Type | Description
 ------------- | ------------- | -------------
- **reviewSummationId** | String | the review summation id 
+ **reviewSummationId** | String | the review summation id
 
 ### Return type
 

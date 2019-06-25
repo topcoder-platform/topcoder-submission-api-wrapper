@@ -137,6 +137,56 @@ module.exports = (config) => {
     // Delete review summation
     deleteReviewSummation: async (reviewSummationId) => {
       return require('./src/ReviewSummationsApi').deleteReviewSummation(config, reviewSummationId)
+    },
+
+    // -- submission APIs --
+    // Search submissions
+    searchSubmissions: async (reqQuery) => {
+      return require('./src/SubmissionsApi').searchSubmissions(config, reqQuery)
+    },
+    // Head submissions
+    headSubmissions: async (reqQuery) => {
+      return require('./src/SubmissionsApi').headSubmissions(config, reqQuery)
+    },
+    // Create submission
+    createSubmission: async (reqFormData) => {
+      return require('./src/SubmissionsApi').createSubmission(config, reqFormData)
+    },
+    // Get submission
+    getSubmission: async (submissionId) => {
+      return require('./src/SubmissionsApi').getSubmission(config, submissionId)
+    },
+    // Head submission
+    headSubmission: async (submissionId) => {
+      return require('./src/SubmissionsApi').headSubmission(config, submissionId)
+    },
+    // Fully update submission
+    updateSubmission: async (submissionId, reqBody) => {
+      return require('./src/SubmissionsApi').updateSubmission(config, submissionId, reqBody)
+    },
+    // Partially update submission
+    patchSubmission: async (submissionId, reqBody) => {
+      return require('./src/SubmissionsApi').patchSubmission(config, submissionId, reqBody)
+    },
+    // Delete review submission
+    deleteSubmission: async (submissionId) => {
+      return require('./src/SubmissionsApi').deleteSubmission(config, submissionId)
+    },
+    // Download submission
+    downloadSubmission: async (submissionId) => {
+      return require('./src/SubmissionsApi').downloadSubmission(config, submissionId)
+    },
+    // Create artifact for submission
+    createArtifact: async (submissionId, reqFormData) => {
+      return require('./src/SubmissionsApi').createArtifact(config, submissionId, reqFormData)
+    },
+    // List artifacts of specified submission
+    listArtifacts: async (submissionId) => {
+      return require('./src/SubmissionsApi').listArtifacts(config, submissionId)
+    },
+    // Download artifact
+    downloadArtifact: async (submissionId, artifactId) => {
+      return require('./src/SubmissionsApi').downloadArtifact(config, submissionId, artifactId)
     }
   }
 }

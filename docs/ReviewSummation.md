@@ -1,6 +1,7 @@
 # Review Summation
 
 ## Properties
+
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **id** | **String** | The review summation id. |
@@ -13,4 +14,3 @@ Name | Type | Description | Notes
 **updated** | **String** | The ISO date string of updated date. |
 **createdBy** | **String** | The created by user. |
 **updatedBy** | **String** | The updated by user. |
-

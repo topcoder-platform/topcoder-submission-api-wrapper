@@ -1,6 +1,7 @@
 # Search Reviews Criteria
 
 ## Properties
+
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **page** | **Integer** | The page number. | Default value is 1
