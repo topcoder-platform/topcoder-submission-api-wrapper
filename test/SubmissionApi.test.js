@@ -274,7 +274,8 @@ describe('Submission API Tests', () => {
       should.equal(res.body.memberId, memberId)
       should.equal(res.body.challengeId, challengeId)
       should.equal(res.body.fileType, 'zip')
-      should.equal(res.body.url, url)
+      // should.equal(res.body.url, url) Can't test if url matches because url changes after AV processor is done with its task
+      should.exist(res.body.url)
     })
 
     it(`failure - Get submission with not found id`, async () => {
