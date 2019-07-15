@@ -29,6 +29,9 @@ Wrapper library for Topcoder Submission API
     - AUTH0_CLIENT_SECRET - the auth0 client secret, used as credential
     - AUTH0_PROXY_SERVER_URL - (optional) the auth0 proxy server url
     - SUBMISSION_API_URL - Topcoder V5 Submission API URL. E.g. `https://api.topcoder-dev.com/v5`
+    - PAGE - the page number
+    - PER_PAGE - the page size
+    - MAX_PAGE_SIZE - the max number of page size
 
 3. Every function in this wrapper will return a promise, Handling promises is at the caller end. Call the functions with appropriate arguments
 

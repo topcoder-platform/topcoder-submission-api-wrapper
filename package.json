@@ -6,8 +6,8 @@
   "scripts": {
     "lint": "standard",
     "lint:fix": "standard --fix",
-    "test": "mocha test/*.test.js --timeout 30000 --exit",
-    "cov": "nyc --reporter=html --reporter=text mocha test/*.test.js --timeout 30000 --exit"
+    "test": "mocha test/*.test.js --require test/prepare.js --timeout 30000 --exit",
+    "cov": "nyc --reporter=html --reporter=text mocha test/*.test.js --require test/prepare.js --timeout 30000 --exit"
   },
   "dependencies": {
     "@hapi/joi": "^15.0.3",
@@ -18,8 +18,11 @@
   "devDependencies": {
     "chai": "^4.2.0",
     "mocha": "^6.1.4",
+    "mocha-prepare": "^0.1.0",
+    "nock": "^9.4.4",
     "nyc": "^14.1.1",
-    "standard": "^12.0.1"
+    "standard": "^12.0.1",
+    "uuid": "^3.3.2"
   },
   "standard": {
     "env": [
