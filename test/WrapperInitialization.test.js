@@ -4,8 +4,12 @@
 
 const _ = require('lodash')
 const should = require('chai').should()
-const config = require('./testConfig')
+const allConfig = require('./testConfig')
 const api = require('../index')
+
+// Pick auth config
+const config = _.pick(allConfig, ['AUTH0_URL', 'AUTH0_AUDIENCE', 'TOKEN_CACHE_TIME',
+  'AUTH0_CLIENT_ID', 'AUTH0_CLIENT_SECRET', 'SUBMISSION_API_URL', 'AUTH0_PROXY_SERVER_URL' ])
 
 describe('Wrapper Initialization Tests', () => {
   for (const key in config) {

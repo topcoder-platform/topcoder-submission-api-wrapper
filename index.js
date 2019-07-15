@@ -2,9 +2,10 @@
  * Index file
  */
 
+const _ = require('lodash')
 const joi = require('@hapi/joi')
 
-module.exports = (config) => {
+module.exports = (allConfig) => {
   /**
    * The configuration object schema.
    * AUTH0_URL: the auth0 url
@@ -25,6 +26,9 @@ module.exports = (config) => {
     AUTH0_PROXY_SERVER_URL: joi.string()
   })
 
+  // Pick auth config
+  const config = _.pick(allConfig, ['AUTH0_URL', 'AUTH0_AUDIENCE', 'TOKEN_CACHE_TIME',
+    'AUTH0_CLIENT_ID', 'AUTH0_CLIENT_SECRET', 'SUBMISSION_API_URL', 'AUTH0_PROXY_SERVER_URL' ])
   // Validate the arguments
   const result = joi.validate(config, schema)
 
