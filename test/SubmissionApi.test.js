@@ -14,7 +14,7 @@ const failClient = api(_.assign(_.cloneDeep(config), { 'AUTH0_CLIENT_ID': 'inval
 const fileData1 = fs.readFileSync(path.resolve(__dirname, './data/fileToUpload.zip'))
 const fileData2 = fs.readFileSync(path.resolve(__dirname, './data/good.zip'))
 const notFoundId = 'e0a789ea-6144-4266-bfae-872f9a26e749'
-const type = 'ContestSubmission'
+const type = 'Contest Submission'
 const memberId = 40493050
 const challengeId = 30054692
 const url = 'https://tc-test-submission-scan.s3.amazonaws.com/good.zip'
@@ -395,12 +395,12 @@ describe('Submission API Tests', () => {
   describe('Test patch submission', () => {
     it(`Patch submission success`, async () => {
       const res = await client.patchSubmission(createdSubmissionId2, {
-        type: 'contestSubmission',
+        type: 'Contest Submission',
         legacyUploadId: 1000000
       })
       should.equal(res.status, 200)
       should.equal(res.body.id, createdSubmissionId2)
-      should.equal(res.body.type, 'contestSubmission')
+      should.equal(res.body.type, 'Contest Submission')
       should.equal(res.body.memberId, memberId)
       should.equal(res.body.challengeId, challengeId)
       should.equal(res.body.url, url)

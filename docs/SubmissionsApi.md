@@ -137,14 +137,14 @@ const reqFormData1 = {
     name: 'fileToUpload.zip',
     data: fileData // a Buffer contain file content
   },
-  type: 'ContestSubmission',
+  type: 'Contest Submission',
   memberId: 40493050,
   challengeId: 30054692
 }
 
 const reqFormData2 = {
   url: 'https://tc-test-submission-scan.s3.amazonaws.com/good.zip',
-  type: 'ContestSubmission',
+  type: 'Contest Submission',
   memberId: 40493050,
   challengeId: 30054692
 }
@@ -326,7 +326,7 @@ const submissionApiClient = submissionApi(_.pick(config,
 const submissionId = '8f4e8b6a-0ad2-4ff6-ab19-afeb102ff3b4'
 const reqBody = {
   url: 'https://tc-test-submission-scan.s3.amazonaws.com/good.zip',
-  type: 'ContestSubmission',
+  type: 'Contest Submission',
   memberId: 40493050,
   challengeId: 30054692
 }
@@ -378,7 +378,7 @@ const submissionApiClient = submissionApi(_.pick(config,
 const submissionId = '8f4e8b6a-0ad2-4ff6-ab19-afeb102ff3b4'
 const reqBody = {
   url: 'https://tc-test-submission-scan.s3.amazonaws.com/good.zip',
-  type: 'ContestSubmission'
+  type: 'Contest Submission'
 }
 
 // Promise model
