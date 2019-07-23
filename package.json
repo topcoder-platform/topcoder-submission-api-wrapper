@@ -28,5 +28,14 @@
     "env": [
       "mocha"
     ]
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/topcoder-platform/topcoder-submission-api-wrapper.git"
+  },
+  "author": "lazybaer",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/topcoder-platform/topcoder-submission-api-wrapper/issues"
   }
 }
