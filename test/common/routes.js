@@ -216,7 +216,7 @@ module.exports = {
   },
   '/submissions': {
     post: {
-      id: [td.SUBMISSION_ID2, td.SUBMISSION_ID1],
+      id: [td.SUBMISSION_ID2, td.SUBMISSION_ID1, td.SUBMISSION_ID2, td.SUBMISSION_ID1, td.SUBMISSION_ID2, td.SUBMISSION_ID1],
       schema: {
         authUser: joi.object().required(),
         files: joi.any(),

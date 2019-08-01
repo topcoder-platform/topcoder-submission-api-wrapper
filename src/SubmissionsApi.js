@@ -17,9 +17,9 @@ const helper = require('./common/helper')
  *   reviewSummation.isPassing(The review summation is passing flag filter)
  * @returns {Promise} searched submissions
  */
-const searchSubmissions = async (config, reqQuery) => {
+const searchSubmissions = (config, reqQuery, jwt = null) => {
   const url = helper.buildURLwithParams(`${config.SUBMISSION_API_URL}/submissions`, reqQuery)
-  return helper.reqToV5API(config, 'GET', url)
+  return helper.reqToV5API(config, jwt, 'GET', url)
 }
 
 /**
@@ -35,9 +35,9 @@ const searchSubmissions = async (config, reqQuery) => {
  *   reviewSummation.isPassing(The review summation is passing flag filter)
  * @returns {Promise} searched submissions head
  */
-const headSubmissions = async (config, reqQuery) => {
+const headSubmissions = (config, reqQuery, jwt = null) => {
   const url = helper.buildURLwithParams(`${config.SUBMISSION_API_URL}/submissions`, reqQuery)
-  return helper.reqToV5API(config, 'HEAD', url)
+  return helper.reqToV5API(config, jwt, 'HEAD', url)
 }
 
 /**
@@ -50,8 +50,8 @@ const headSubmissions = async (config, reqQuery) => {
  *   submissionPhaseId(the submission phase id)
  * @returns {Promise} created submission
  */
-const createSubmission = async (config, reqFormData) => {
-  return helper.reqToV5APIWithFile(config, `${config.SUBMISSION_API_URL}/submissions`, reqFormData, 'submission')
+const createSubmission = (config, reqFormData, jwt = null) => {
+  return helper.reqToV5APIWithFile(config, jwt, `${config.SUBMISSION_API_URL}/submissions`, reqFormData, 'submission')
 }
 
 /**
@@ -60,8 +60,8 @@ const createSubmission = async (config, reqFormData) => {
  * @param {String} submissionId the submission id
  * @returns {Promise} the submission with given id
  */
-const getSubmission = async (config, submissionId) => {
-  return helper.reqToV5API(config, 'GET', `${config.SUBMISSION_API_URL}/submissions/${submissionId}`)
+const getSubmission = (config, submissionId, jwt = null) => {
+  return helper.reqToV5API(config, jwt, 'GET', `${config.SUBMISSION_API_URL}/submissions/${submissionId}`)
 }
 
 /**
@@ -70,8 +70,8 @@ const getSubmission = async (config, submissionId) => {
  * @param {String} submissionId the submission id
  * @returns {Promise}
  */
-const headSubmission = async (config, submissionId) => {
-  return helper.reqToV5API(config, 'HEAD', `${config.SUBMISSION_API_URL}/submissions/${submissionId}`)
+const headSubmission = (config, submissionId, jwt = null) => {
+  return helper.reqToV5API(config, jwt, 'HEAD', `${config.SUBMISSION_API_URL}/submissions/${submissionId}`)
 }
 
 /**
@@ -84,8 +84,8 @@ const headSubmission = async (config, submissionId) => {
  *   submissionPhaseId(the submission phase id)
  * @returns {Promise} updated submission
  */
-const updateSubmission = async (config, submissionId, reqBody) => {
-  return helper.reqToV5API(config, 'PUT', `${config.SUBMISSION_API_URL}/submissions/${submissionId}`, reqBody)
+const updateSubmission = (config, submissionId, reqBody, jwt = null) => {
+  return helper.reqToV5API(config, jwt, 'PUT', `${config.SUBMISSION_API_URL}/submissions/${submissionId}`, reqBody)
 }
 
 /**
@@ -98,8 +98,8 @@ const updateSubmission = async (config, submissionId, reqBody) => {
  *   submissionPhaseId(the submission phase id)
  * @returns {Promise} updated submission
  */
-const patchSubmission = async (config, submissionId, reqBody) => {
-  return helper.reqToV5API(config, 'PATCH', `${config.SUBMISSION_API_URL}/submissions/${submissionId}`, reqBody)
+const patchSubmission = (config, submissionId, reqBody, jwt = null) => {
+  return helper.reqToV5API(config, jwt, 'PATCH', `${config.SUBMISSION_API_URL}/submissions/${submissionId}`, reqBody)
 }
 
 /**
@@ -108,8 +108,8 @@ const patchSubmission = async (config, submissionId, reqBody) => {
  * @param {String} submissionId the submission id
  * @returns {Promise}
  */
-const deleteSubmission = async (config, submissionId) => {
-  return helper.reqToV5API(config, 'DELETE', `${config.SUBMISSION_API_URL}/submissions/${submissionId}`)
+const deleteSubmission = (config, submissionId, jwt = null) => {
+  return helper.reqToV5API(config, jwt, 'DELETE', `${config.SUBMISSION_API_URL}/submissions/${submissionId}`)
 }
 
 /**
@@ -118,8 +118,8 @@ const deleteSubmission = async (config, submissionId) => {
  * @param {String} submissionId the submission id
  * @returns {Promise} the submission file content
  */
-const downloadSubmission = async (config, submissionId) => {
-  return helper.reqToV5APIDownload(config, `${config.SUBMISSION_API_URL}/submissions/${submissionId}/download`)
+const downloadSubmission = (config, submissionId, jwt = null) => {
+  return helper.reqToV5APIDownload(config, jwt, `${config.SUBMISSION_API_URL}/submissions/${submissionId}/download`)
 }
 
 /**
@@ -130,8 +130,8 @@ const downloadSubmission = async (config, submissionId) => {
  *   artifact(a File object, artifact.name indicate the file name, submission.data is a Buffer contain the file data)
  * @returns {Promise} the created artifact
  */
-const createArtifact = async (config, submissionId, reqFormData) => {
-  return helper.reqToV5APIWithFile(config, `${config.SUBMISSION_API_URL}/submissions/${submissionId}/artifacts`, reqFormData, 'artifact')
+const createArtifact = (config, submissionId, reqFormData, jwt = null) => {
+  return helper.reqToV5APIWithFile(config, jwt, `${config.SUBMISSION_API_URL}/submissions/${submissionId}/artifacts`, reqFormData, 'artifact')
 }
 
 /**
@@ -140,8 +140,8 @@ const createArtifact = async (config, submissionId, reqFormData) => {
  * @param {String} submissionId the submission id
  * @returns {Promise} the artifacts of submission
  */
-const listArtifacts = async (config, submissionId) => {
-  return helper.reqToV5API(config, 'GET', `${config.SUBMISSION_API_URL}/submissions/${submissionId}/artifacts`)
+const listArtifacts = (config, submissionId, jwt = null) => {
+  return helper.reqToV5API(config, jwt, 'GET', `${config.SUBMISSION_API_URL}/submissions/${submissionId}/artifacts`)
 }
 
 /**
@@ -151,8 +151,8 @@ const listArtifacts = async (config, submissionId) => {
  * @param {String} artifactId the artifact id
  * @returns {Promise} the artifact file content
  */
-const downloadArtifact = async (config, submissionId, artifactId) => {
-  return helper.reqToV5APIDownload(config, `${config.SUBMISSION_API_URL}/submissions/${submissionId}/artifacts/${artifactId}/download`)
+const downloadArtifact = (config, submissionId, artifactId, jwt = null) => {
+  return helper.reqToV5APIDownload(config, jwt, `${config.SUBMISSION_API_URL}/submissions/${submissionId}/artifacts/${artifactId}/download`)
 }
 
 module.exports = {

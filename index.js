@@ -16,7 +16,7 @@ module.exports = (allConfig) => {
    * SUBMISSION_API_URL: the Topcoder v5 submission api base url.
    * AUTH0_PROXY_SERVER_URL: the auth0 proxy server url, it is optional field.
    */
-  const schema = joi.object().keys({
+  const m2mSchema = joi.object().keys({
     AUTH0_URL: joi.string().uri().trim().required(),
     AUTH0_AUDIENCE: joi.string().uri().trim().required(),
     TOKEN_CACHE_TIME: joi.number().integer().min(0),
@@ -26,14 +26,63 @@ module.exports = (allConfig) => {
     AUTH0_PROXY_SERVER_URL: joi.string()
   })
 
+  /**
+   * The user credentials schema.
+   * USERNAME: the username
+   * PASSWORD: the user password
+   * TC_AUTHN_URL: the tc authn url
+   * TC_AUTHZ_URL: the tc authz url
+   * TC_CLIENT_ID: the tc client id
+   * TC_CLIENT_V2CONNECTION: the tc client v2connection
+   */
+  const credentialsSchema = joi.object().keys({
+    USERNAME: joi.string().trim().required(),
+    PASSWORD: joi.string().trim().required(),
+    TC_AUTHN_URL: joi.string().trim().uri().required(),
+    TC_AUTHZ_URL: joi.string().trim().uri().required(),
+    TC_CLIENT_ID: joi.string().trim().required(),
+    TC_CLIENT_V2CONNECTION: joi.string().trim().required(),
+    SUBMISSION_API_URL: joi.string().uri().trim().required()
+  })
+
+  /**
+   * The JWT method argument config schema
+   */
+  const jwtMethodArgSchema = joi.object().keys({
+    SUBMISSION_API_URL: joi.string().uri().trim().required()
+  }).unknown(false)
+
+  let schema = jwtMethodArgSchema
+  let schemaType = 'JWT Method Argument'
+
   // Pick auth config
-  const config = _.pick(allConfig, ['AUTH0_URL', 'AUTH0_AUDIENCE', 'TOKEN_CACHE_TIME',
-    'AUTH0_CLIENT_ID', 'AUTH0_CLIENT_SECRET', 'SUBMISSION_API_URL', 'AUTH0_PROXY_SERVER_URL' ])
+  const config = _.pick(allConfig, [
+    'AUTH0_URL',
+    'AUTH0_AUDIENCE',
+    'TOKEN_CACHE_TIME',
+    'AUTH0_CLIENT_ID',
+    'AUTH0_CLIENT_SECRET',
+    'SUBMISSION_API_URL',
+    'AUTH0_PROXY_SERVER_URL',
+    'USERNAME',
+    'PASSWORD',
+    'TC_AUTHN_URL',
+    'TC_AUTHZ_URL',
+    'TC_CLIENT_ID',
+    'TC_CLIENT_V2CONNECTION'
+  ])
+  if (_.has(config, 'AUTH0_URL')) {
+    schema = m2mSchema
+    schemaType = 'M2M Configuration'
+  } else if (_.has(config, 'USERNAME')) {
+    schema = credentialsSchema
+    schemaType = 'User Credentials Configuration'
+  }
+
   // Validate the arguments
   const result = joi.validate(config, schema)
-
   if (result.error) {
-    throw new Error(result.error.details[0].message)
+    throw new Error(`[${schemaType}] ${result.error.details[0].message}`)
   }
 
   // Export functions
@@ -41,156 +90,156 @@ module.exports = (allConfig) => {
     // -- review type APIs --
 
     // Search review types
-    searchReviewTypes: async (reqQuery) => {
-      return require('./src/ReviewTypesApi').searchReviewTypes(config, reqQuery)
+    searchReviewTypes: (reqQuery, jwt) => {
+      return require('./src/ReviewTypesApi').searchReviewTypes(config, reqQuery, jwt)
     },
     // Head review types
-    headReviewTypes: async (reqQuery) => {
-      return require('./src/ReviewTypesApi').headReviewTypes(config, reqQuery)
+    headReviewTypes: (reqQuery, jwt) => {
+      return require('./src/ReviewTypesApi').headReviewTypes(config, reqQuery, jwt)
     },
     // Create review type
-    createReviewType: async (reqBody) => {
-      return require('./src/ReviewTypesApi').createReviewType(config, reqBody)
+    createReviewType: (reqBody, jwt) => {
+      return require('./src/ReviewTypesApi').createReviewType(config, reqBody, jwt)
     },
     // Get review type
-    getReviewType: async (reviewTypeId) => {
-      return require('./src/ReviewTypesApi').getReviewType(config, reviewTypeId)
+    getReviewType: (reviewTypeId, jwt) => {
+      return require('./src/ReviewTypesApi').getReviewType(config, reviewTypeId, jwt)
     },
     // Head review type
-    headReviewType: async (reviewTypeId) => {
-      return require('./src/ReviewTypesApi').headReviewType(config, reviewTypeId)
+    headReviewType: (reviewTypeId, jwt) => {
+      return require('./src/ReviewTypesApi').headReviewType(config, reviewTypeId, jwt)
     },
     // Fully update review type
-    updateReviewType: async (reviewTypeId, reqBody) => {
-      return require('./src/ReviewTypesApi').updateReviewType(config, reviewTypeId, reqBody)
+    updateReviewType: (reviewTypeId, reqBody, jwt) => {
+      return require('./src/ReviewTypesApi').updateReviewType(config, reviewTypeId, reqBody, jwt)
     },
     // Partially update review type
-    patchReviewType: async (reviewTypeId, reqBody) => {
-      return require('./src/ReviewTypesApi').patchReviewType(config, reviewTypeId, reqBody)
+    patchReviewType: (reviewTypeId, reqBody, jwt) => {
+      return require('./src/ReviewTypesApi').patchReviewType(config, reviewTypeId, reqBody, jwt)
     },
     // Delete review type
-    deleteReviewType: async (reviewTypeId) => {
-      return require('./src/ReviewTypesApi').deleteReviewType(config, reviewTypeId)
+    deleteReviewType: (reviewTypeId, jwt) => {
+      return require('./src/ReviewTypesApi').deleteReviewType(config, reviewTypeId, jwt)
     },
 
     // -- review APIs --
 
     // Search reviews
-    searchReviews: async (reqQuery) => {
-      return require('./src/ReviewsApi').searchReviews(config, reqQuery)
+    searchReviews: (reqQuery, jwt) => {
+      return require('./src/ReviewsApi').searchReviews(config, reqQuery, jwt)
     },
     // Head reviews
-    headReviews: async (reqQuery) => {
-      return require('./src/ReviewsApi').headReviews(config, reqQuery)
+    headReviews: (reqQuery, jwt) => {
+      return require('./src/ReviewsApi').headReviews(config, reqQuery, jwt)
     },
     // Create review
-    createReview: async (reqBody) => {
-      return require('./src/ReviewsApi').createReview(config, reqBody)
+    createReview: (reqBody, jwt) => {
+      return require('./src/ReviewsApi').createReview(config, reqBody, jwt)
     },
     // Get review
-    getReview: async (reviewId) => {
-      return require('./src/ReviewsApi').getReview(config, reviewId)
+    getReview: (reviewId, jwt) => {
+      return require('./src/ReviewsApi').getReview(config, reviewId, jwt)
     },
     // Head review
-    headReview: async (reviewId) => {
-      return require('./src/ReviewsApi').headReview(config, reviewId)
+    headReview: (reviewId, jwt) => {
+      return require('./src/ReviewsApi').headReview(config, reviewId, jwt)
     },
     // Fully update review
-    updateReview: async (reviewId, reqBody) => {
-      return require('./src/ReviewsApi').updateReview(config, reviewId, reqBody)
+    updateReview: (reviewId, reqBody, jwt) => {
+      return require('./src/ReviewsApi').updateReview(config, reviewId, reqBody, jwt)
     },
     // Partially update review
-    patchReview: async (reviewId, reqBody) => {
-      return require('./src/ReviewsApi').patchReview(config, reviewId, reqBody)
+    patchReview: (reviewId, reqBody, jwt) => {
+      return require('./src/ReviewsApi').patchReview(config, reviewId, reqBody, jwt)
     },
     // Delete review
-    deleteReview: async (reviewId) => {
-      return require('./src/ReviewsApi').deleteReview(config, reviewId)
+    deleteReview: (reviewId, jwt) => {
+      return require('./src/ReviewsApi').deleteReview(config, reviewId, jwt)
     },
 
     // -- review summation APIs --
 
     // Search review summations
-    searchReviewSummations: async (reqQuery) => {
-      return require('./src/ReviewSummationsApi').searchReviewSummations(config, reqQuery)
+    searchReviewSummations: (reqQuery, jwt) => {
+      return require('./src/ReviewSummationsApi').searchReviewSummations(config, reqQuery, jwt)
     },
     // Head review summations
-    headReviewSummations: async (reqQuery) => {
-      return require('./src/ReviewSummationsApi').headReviewSummations(config, reqQuery)
+    headReviewSummations: (reqQuery, jwt) => {
+      return require('./src/ReviewSummationsApi').headReviewSummations(config, reqQuery, jwt)
     },
     // Create review summation
-    createReviewSummation: async (reqBody) => {
-      return require('./src/ReviewSummationsApi').createReviewSummation(config, reqBody)
+    createReviewSummation: (reqBody, jwt) => {
+      return require('./src/ReviewSummationsApi').createReviewSummation(config, reqBody, jwt)
     },
     // Get review summation
-    getReviewSummation: async (reviewSummationId) => {
-      return require('./src/ReviewSummationsApi').getReviewSummation(config, reviewSummationId)
+    getReviewSummation: (reviewSummationId, jwt) => {
+      return require('./src/ReviewSummationsApi').getReviewSummation(config, reviewSummationId, jwt)
     },
     // Head review summation
-    headReviewSummation: async (reviewSummationId) => {
-      return require('./src/ReviewSummationsApi').headReviewSummation(config, reviewSummationId)
+    headReviewSummation: (reviewSummationId, jwt) => {
+      return require('./src/ReviewSummationsApi').headReviewSummation(config, reviewSummationId, jwt)
     },
     // Fully update review summation
-    updateReviewSummation: async (reviewSummationId, reqBody) => {
-      return require('./src/ReviewSummationsApi').updateReviewSummation(config, reviewSummationId, reqBody)
+    updateReviewSummation: (reviewSummationId, reqBody, jwt) => {
+      return require('./src/ReviewSummationsApi').updateReviewSummation(config, reviewSummationId, reqBody, jwt)
     },
     // Partially update review summation
-    patchReviewSummation: async (reviewSummationId, reqBody) => {
-      return require('./src/ReviewSummationsApi').patchReviewSummation(config, reviewSummationId, reqBody)
+    patchReviewSummation: (reviewSummationId, reqBody, jwt) => {
+      return require('./src/ReviewSummationsApi').patchReviewSummation(config, reviewSummationId, reqBody, jwt)
     },
     // Delete review summation
-    deleteReviewSummation: async (reviewSummationId) => {
-      return require('./src/ReviewSummationsApi').deleteReviewSummation(config, reviewSummationId)
+    deleteReviewSummation: (reviewSummationId, jwt) => {
+      return require('./src/ReviewSummationsApi').deleteReviewSummation(config, reviewSummationId, jwt)
     },
 
     // -- submission APIs --
     // Search submissions
-    searchSubmissions: async (reqQuery) => {
-      return require('./src/SubmissionsApi').searchSubmissions(config, reqQuery)
+    searchSubmissions: (reqQuery, jwt) => {
+      return require('./src/SubmissionsApi').searchSubmissions(config, reqQuery, jwt)
     },
     // Head submissions
-    headSubmissions: async (reqQuery) => {
-      return require('./src/SubmissionsApi').headSubmissions(config, reqQuery)
+    headSubmissions: (reqQuery, jwt) => {
+      return require('./src/SubmissionsApi').headSubmissions(config, reqQuery, jwt)
     },
     // Create submission
-    createSubmission: async (reqFormData) => {
-      return require('./src/SubmissionsApi').createSubmission(config, reqFormData)
+    createSubmission: (reqFormData, jwt) => {
+      return require('./src/SubmissionsApi').createSubmission(config, reqFormData, jwt)
     },
     // Get submission
-    getSubmission: async (submissionId) => {
-      return require('./src/SubmissionsApi').getSubmission(config, submissionId)
+    getSubmission: (submissionId, jwt) => {
+      return require('./src/SubmissionsApi').getSubmission(config, submissionId, jwt)
     },
     // Head submission
-    headSubmission: async (submissionId) => {
-      return require('./src/SubmissionsApi').headSubmission(config, submissionId)
+    headSubmission: (submissionId, jwt) => {
+      return require('./src/SubmissionsApi').headSubmission(config, submissionId, jwt)
     },
     // Fully update submission
-    updateSubmission: async (submissionId, reqBody) => {
-      return require('./src/SubmissionsApi').updateSubmission(config, submissionId, reqBody)
+    updateSubmission: (submissionId, reqBody, jwt) => {
+      return require('./src/SubmissionsApi').updateSubmission(config, submissionId, reqBody, jwt)
     },
     // Partially update submission
-    patchSubmission: async (submissionId, reqBody) => {
-      return require('./src/SubmissionsApi').patchSubmission(config, submissionId, reqBody)
+    patchSubmission: (submissionId, reqBody, jwt) => {
+      return require('./src/SubmissionsApi').patchSubmission(config, submissionId, reqBody, jwt)
     },
     // Delete review submission
-    deleteSubmission: async (submissionId) => {
-      return require('./src/SubmissionsApi').deleteSubmission(config, submissionId)
+    deleteSubmission: (submissionId, jwt) => {
+      return require('./src/SubmissionsApi').deleteSubmission(config, submissionId, jwt)
     },
     // Download submission
-    downloadSubmission: async (submissionId) => {
-      return require('./src/SubmissionsApi').downloadSubmission(config, submissionId)
+    downloadSubmission: (submissionId, jwt) => {
+      return require('./src/SubmissionsApi').downloadSubmission(config, submissionId, jwt)
     },
     // Create artifact for submission
-    createArtifact: async (submissionId, reqFormData) => {
-      return require('./src/SubmissionsApi').createArtifact(config, submissionId, reqFormData)
+    createArtifact: (submissionId, reqFormData, jwt) => {
+      return require('./src/SubmissionsApi').createArtifact(config, submissionId, reqFormData, jwt)
     },
     // List artifacts of specified submission
-    listArtifacts: async (submissionId) => {
-      return require('./src/SubmissionsApi').listArtifacts(config, submissionId)
+    listArtifacts: (submissionId, jwt) => {
+      return require('./src/SubmissionsApi').listArtifacts(config, submissionId, jwt)
     },
     // Download artifact
-    downloadArtifact: async (submissionId, artifactId) => {
-      return require('./src/SubmissionsApi').downloadArtifact(config, submissionId, artifactId)
+    downloadArtifact: (submissionId, artifactId, jwt) => {
+      return require('./src/SubmissionsApi').downloadArtifact(config, submissionId, artifactId, jwt)
     }
   }
 }
