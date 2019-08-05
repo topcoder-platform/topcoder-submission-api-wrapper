@@ -333,6 +333,16 @@ const multiPartParse = (body, contentType) => {
   return partsByName
 }
 
+/**
+ * Make client that invokes the Wrapper methods with JWT argument
+ */
+function makeJwtClient (api, jwt) {
+  return Object.entries(api).reduce((acc, [key, fn]) => {
+    acc[key] = (...args) => fn(...args, jwt)
+    return acc
+  }, {})
+}
+
 module.exports = {
   resHeaders,
   hexToString,
@@ -343,5 +353,6 @@ module.exports = {
   get,
   put,
   patch,
-  remove
+  remove,
+  makeJwtClient
 }

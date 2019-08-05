@@ -8,17 +8,19 @@
 
 ## Test Coverage Report
 
-  226 passing (5m)
+668 passing
 
-File                                        |  % Stmts | % Branch |  % Funcs |  % Lines | Uncovered Line #s
---------------------------------------------|----------|----------|----------|----------|-------------------
-All files                                   |    99.42 |       90 |      100 |    99.42 |
- topcoder-submission-api-wrapper            |      100 |      100 |      100 |      100 |
-  index.js                                  |      100 |      100 |      100 |      100 |
- topcoder-submission-api-wrapper/src        |      100 |      100 |      100 |      100 |
-  ReviewSummationsApi.js                    |      100 |      100 |      100 |      100 |
-  ReviewTypesApi.js                         |      100 |      100 |      100 |      100 |
-  ReviewsApi.js                             |      100 |      100 |      100 |      100 |
-  SubmissionsApi.js                         |      100 |      100 |      100 |      100 |
- topcoder-submission-api-wrapper/src/common |    97.56 |    88.89 |      100 |    97.56 |
-  helper.js                                 |    97.56 |    88.89 |      100 |    97.56 |                63
+
+File                                        |  % Stmts | % Branch |  % Funcs |  % Lines | Uncovered Line #s |
+--------------------------------------------|----------|----------|----------|----------|-------------------|
+All files                                   |     99.5 |    95.52 |      100 |     99.5 |                   |
+ topcoder-submission-api-wrapper            |      100 |      100 |      100 |      100 |                   |
+  index.js                                  |      100 |      100 |      100 |      100 |                   |
+ topcoder-submission-api-wrapper/src        |      100 |      100 |      100 |      100 |                   |
+  ReviewSummationsApi.js                    |      100 |      100 |      100 |      100 |                   |
+  ReviewTypesApi.js                         |      100 |      100 |      100 |      100 |                   |
+  ReviewsApi.js                             |      100 |      100 |      100 |      100 |                   |
+  SubmissionsApi.js                         |      100 |      100 |      100 |      100 |                   |
+ topcoder-submission-api-wrapper/src/common |    98.25 |       88 |      100 |    98.25 |                   |
+  constants.js                              |      100 |      100 |      100 |      100 |                   |
+  helper.js                                 |    98.21 |       88 |      100 |    98.21 |               134 |

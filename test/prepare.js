@@ -14,15 +14,20 @@ const th = require('./common/testHelper')
 const td = require('./common/testData')
 const Reviews = require('./data/Reviews.json')
 const ReviewSummations = require('./data/ReviewSummations.json')
+const store = require('./common/store')
 
 const AUTH_PATH = td.AUTH_PATH
+const AUTHN_PATH = td.AUTHN_PATH
+const AUTHN_REFRESH_TOKEN = td.AUTHN_REFRESH_TOKEN
+const AUTHN_ID_TOKEN = td.AUTHN_ID_TOKEN
+const AUTHN_ACCESS_TOKEN = td.AUTHN_ACCESS_TOKEN
+const AUTHN_TOKEN_TYPE = td.AUTHN_TOKEN_TYPE
+const AUTHZ_PATH = td.AUTHZ_PATH
+const AUTHZ_TOKEN = td.AUTHZ_TOKEN
+
 const API_VERSION = td.API_VERSION
 
-let reviewTypeData
-let reviewData
-let reviewSummationData
-let submissionData = {}
-let artifactData
+store.submissionData = {}
 const reviewForGet = Reviews[0]
 const reviewSummationForGet = ReviewSummations[0]
 
@@ -51,6 +56,22 @@ prepare(function (done) {
         }]
       }
     })
+    .post(AUTHN_PATH)
+    .reply((_uri, requestBody) => {
+      if (requestBody.password === 'invalid') {
+        return [401, {
+          message: 'Unknown Error'
+        }]
+      }
+      return [200, {
+        'id_token': AUTHN_ID_TOKEN,
+        'refresh_token': AUTHN_REFRESH_TOKEN,
+        'access_token': AUTHN_ACCESS_TOKEN,
+        'token_type': AUTHN_TOKEN_TYPE
+      }]
+    })
+    .post(AUTHZ_PATH)
+    .reply(() => [ 200, { result: { content: { token: AUTHZ_TOKEN } } } ])
     .post(`/reviewTypes`)
     .reply(function (uri, body) {
       const result = th.create({
@@ -59,7 +80,7 @@ prepare(function (done) {
         body
       })
       if (result[0] === td.CREATE_SUCCESS_STATUS) {
-        reviewTypeData = result[1]
+        store.reviewTypeData = result[1]
       }
       return result
     })
@@ -86,7 +107,7 @@ prepare(function (done) {
       return th.get({
         uri,
         method: this.method.toLowerCase(),
-        obj: reviewTypeData,
+        obj: store.reviewTypeData,
         notFound: td.NotFoundError.ReviewType
       })
     })
@@ -107,12 +128,12 @@ prepare(function (done) {
       const result = th.put({
         uri,
         method: this.method.toLowerCase(),
-        obj: reviewTypeData,
+        obj: store.reviewTypeData,
         body,
         notFound: td.NotFoundError.ReviewType
       })
       if (result[0] === td.SUCCESS_STATUS) {
-        reviewTypeData = result[1]
+        store.reviewTypeData = result[1]
       }
       return result
     })
@@ -122,12 +143,12 @@ prepare(function (done) {
       const result = th.put({
         uri,
         method: this.method.toLowerCase(),
-        obj: reviewTypeData,
+        obj: store.reviewTypeData,
         body,
         notFound: td.NotFoundError.ReviewType
       })
       if (result[0] === td.SUCCESS_STATUS) {
-        reviewTypeData = result[1]
+        store.reviewTypeData = result[1]
       }
       return result
     })
@@ -137,11 +158,11 @@ prepare(function (done) {
       const result = th.remove({
         uri,
         method: this.method.toLowerCase(),
-        obj: reviewTypeData,
+        obj: store.reviewTypeData,
         notFound: td.NotFoundError.ReviewType
       })
       if (result[0] === td.DELETE_SUCCESS_STATUS) {
-        reviewTypeData = null
+        store.reviewTypeData = null
       }
       return result
     })
@@ -154,7 +175,7 @@ prepare(function (done) {
         needUser: true
       })
       if (result[0] === td.CREATE_SUCCESS_STATUS) {
-        reviewData = result[1]
+        store.reviewData = result[1]
       }
       return result
     })
@@ -204,13 +225,13 @@ prepare(function (done) {
       const result = th.put({
         uri,
         method: this.method.toLowerCase(),
-        obj: reviewData,
+        obj: store.reviewData,
         body,
         needUser: true,
         notFound: td.NotFoundError.Review
       })
       if (result[0] === td.SUCCESS_STATUS) {
-        reviewData = result[1]
+        store.reviewData = result[1]
       }
       return result
     })
@@ -220,13 +241,13 @@ prepare(function (done) {
       const result = th.put({
         uri,
         method: this.method.toLowerCase(),
-        obj: reviewData,
+        obj: store.reviewData,
         body,
         needUser: true,
         notFound: td.NotFoundError.Review
       })
       if (result[0] === td.SUCCESS_STATUS) {
-        reviewData = result[1]
+        store.reviewData = result[1]
       }
       return result
     })
@@ -236,11 +257,11 @@ prepare(function (done) {
       const result = th.remove({
         uri,
         method: this.method.toLowerCase(),
-        obj: reviewData,
+        obj: store.reviewData,
         notFound: td.NotFoundError.Review
       })
       if (result[0] === td.DELETE_SUCCESS_STATUS) {
-        reviewData = null
+        store.reviewData = null
       }
       return result
     })
@@ -253,7 +274,7 @@ prepare(function (done) {
         needUser: true
       })
       if (result[0] === td.CREATE_SUCCESS_STATUS) {
-        reviewSummationData = result[1]
+        store.reviewSummationData = result[1]
       }
       return result
     })
@@ -303,14 +324,14 @@ prepare(function (done) {
       const result = th.put({
         uri,
         method: this.method.toLowerCase(),
-        obj: reviewSummationData,
+        obj: store.reviewSummationData,
         body,
         needUser: true,
         notFoundId: td.SUMMATION_NOTFOUND_ID,
         notFound: td.NotFoundError.ReviewSummation
       })
       if (result[0] === td.SUCCESS_STATUS) {
-        reviewSummationData = result[1]
+        store.reviewSummationData = result[1]
       }
       return result
     })
@@ -320,14 +341,14 @@ prepare(function (done) {
       const result = th.put({
         uri,
         method: this.method.toLowerCase(),
-        obj: reviewSummationData,
+        obj: store.reviewSummationData,
         body,
         needUser: true,
         notFoundId: td.SUMMATION_NOTFOUND_ID,
         notFound: td.NotFoundError.ReviewSummation
       })
       if (result[0] === td.SUCCESS_STATUS) {
-        reviewSummationData = result[1]
+        store.reviewSummationData = result[1]
       }
       return result
     })
@@ -337,12 +358,12 @@ prepare(function (done) {
       const result = th.remove({
         uri,
         method: this.method.toLowerCase(),
-        obj: reviewSummationData,
+        obj: store.reviewSummationData,
         notFoundId: td.SUMMATION_NOTFOUND_ID,
         notFound: td.NotFoundError.ReviewSummation
       })
       if (result[0] === td.DELETE_SUCCESS_STATUS) {
-        reviewSummationData = null
+        store.reviewSummationData = null
       }
       return result
     })
@@ -359,7 +380,7 @@ prepare(function (done) {
         isSubmission: true
       })
       if (result[0] === td.CREATE_SUCCESS_STATUS) {
-        submissionData[result[1].id] = result[1]
+        store.submissionData[result[1].id] = result[1]
       }
       return result
     })
@@ -406,7 +427,7 @@ prepare(function (done) {
     .get(`/submissions/${td.SUBMISSION_ID1}/artifacts`)
     .query(true)
     .reply(function (uri, body) {
-      return [td.SUCCESS_STATUS, { artifacts: [artifactData.artifact.split('.')[0]] }]
+      return [td.SUCCESS_STATUS, { artifacts: [store.artifactData.artifact.split('.')[0]] }]
     })
     .get(`/submissions/invalid/artifacts`)
     .query(true)
@@ -436,11 +457,11 @@ prepare(function (done) {
       if (result.error) {
         return [td.JOI_FAIL_STATUS, { message: result.error.details[0].message }]
       }
-      if (artifactData) {
+      if (store.artifactData) {
         return [409, { message: `Artifact ${route.id}.zip already exists for Submission ${td.SUBMISSION_ID1}` }]
       }
-      artifactData = { artifact: `${route.id}.zip` }
-      return [td.SUCCESS_STATUS, artifactData]
+      store.artifactData = { artifact: `${route.id}.zip` }
+      return [td.SUCCESS_STATUS, store.artifactData]
     })
     .get(`/submissions`)
     .query(true)
@@ -465,7 +486,7 @@ prepare(function (done) {
       return th.get({
         uri,
         method: this.method.toLowerCase(),
-        obj: submissionData,
+        obj: store.submissionData,
         isSubmission: true,
         needUser: true,
         notFound: td.NotFoundError.Submission
@@ -489,14 +510,14 @@ prepare(function (done) {
       const result = th.put({
         uri,
         method: this.method.toLowerCase(),
-        obj: submissionData,
+        obj: store.submissionData,
         isSubmission: true,
         body,
         needUser: true,
         notFound: td.NotFoundError.Submission
       })
       if (result[0] === td.SUCCESS_STATUS) {
-        submissionData[result[1].id] = result[1]
+        store.submissionData[result[1].id] = result[1]
       }
       return result
     })
@@ -506,14 +527,14 @@ prepare(function (done) {
       const result = th.put({
         uri,
         method: this.method.toLowerCase(),
-        obj: submissionData,
+        obj: store.submissionData,
         isSubmission: true,
         body,
         needUser: true,
         notFound: td.NotFoundError.Submission
       })
       if (result[0] === td.SUCCESS_STATUS) {
-        submissionData[result[1].id] = result[1]
+        store.submissionData[result[1].id] = result[1]
       }
       return result
     })
@@ -523,12 +544,12 @@ prepare(function (done) {
       const result = th.remove({
         uri,
         method: this.method.toLowerCase(),
-        obj: submissionData,
+        obj: store.submissionData,
         isSubmission: true,
         notFound: td.NotFoundError.Submission
       })
       if (result[0] === td.DELETE_SUCCESS_STATUS) {
-        submissionData[result[1]] = null
+        store.submissionData[result[1]] = null
         result[1] = null
       }
       return result

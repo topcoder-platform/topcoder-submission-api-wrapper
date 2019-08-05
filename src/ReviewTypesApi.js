@@ -10,11 +10,12 @@ const helper = require('./common/helper')
  * @param {Object} reqQuery the query object, include page(The page number, default value is 1.),
  *   perPage(The number of items to list per page, default value is 20.), name(The name filter for review types.)
  *   and isActive(The active boolean flag filter for review types.)
+ * @param {String} jwt The JWT to authenticate the request
  * @returns {Promise}
  */
-const searchReviewTypes = async (config, reqQuery) => {
+const searchReviewTypes = (config, reqQuery, jwt = null) => {
   const url = helper.buildURLwithParams(`${config.SUBMISSION_API_URL}/reviewTypes`, reqQuery)
-  return helper.reqToV5API(config, 'GET', url)
+  return helper.reqToV5API(config, jwt, 'GET', url)
 }
 
 /**
@@ -23,41 +24,45 @@ const searchReviewTypes = async (config, reqQuery) => {
  * @param {Object} reqQuery the query object, include page(The page number, default value is 1.),
  *   perPage(The number of items to list per page, default value is 20.), name(The name filter for review types.)
  *   and isActive(The active boolean flag filter for review types.)
+ * @param {String} jwt The JWT to authenticate the request
  * @returns {Promise}
  */
-const headReviewTypes = async (config, reqQuery) => {
+const headReviewTypes = (config, reqQuery, jwt = null) => {
   const url = helper.buildURLwithParams(`${config.SUBMISSION_API_URL}/reviewTypes`, reqQuery)
-  return helper.reqToV5API(config, 'HEAD', url)
+  return helper.reqToV5API(config, jwt, 'HEAD', url)
 }
 
 /**
  * Function to create the review type.
  * @param {Object} config Configuration object
  * @param {Object} reqBody the request body object, include name(review type name) and isActive(active flag) properties
+ * @param {String} jwt The JWT to authenticate the request
  * @returns {Promise}
  */
-const createReviewType = async (config, reqBody) => {
-  return helper.reqToV5API(config, 'POST', `${config.SUBMISSION_API_URL}/reviewTypes`, reqBody)
+const createReviewType = (config, reqBody, jwt = null) => {
+  return helper.reqToV5API(config, jwt, 'POST', `${config.SUBMISSION_API_URL}/reviewTypes`, reqBody)
 }
 
 /**
  * Function to get the review type by id.
  * @param {Object} config Configuration object
  * @param {String} reviewTypeId the review type id
+ * @param {String} jwt The JWT to authenticate the request
  * @returns {Promise}
  */
-const getReviewType = async (config, reviewTypeId) => {
-  return helper.reqToV5API(config, 'GET', `${config.SUBMISSION_API_URL}/reviewTypes/${reviewTypeId}`)
+const getReviewType = (config, reviewTypeId, jwt = null) => {
+  return helper.reqToV5API(config, jwt, 'GET', `${config.SUBMISSION_API_URL}/reviewTypes/${reviewTypeId}`)
 }
 
 /**
  * Function to HEAD review type by id.
  * @param {Object} config Configuration object
  * @param {String} reviewTypeId the review type id
+ * @param {String} jwt The JWT to authenticate the request
  * @returns {Promise}
  */
-const headReviewType = async (config, reviewTypeId) => {
-  return helper.reqToV5API(config, 'HEAD', `${config.SUBMISSION_API_URL}/reviewTypes/${reviewTypeId}`)
+const headReviewType = (config, reviewTypeId, jwt = null) => {
+  return helper.reqToV5API(config, jwt, 'HEAD', `${config.SUBMISSION_API_URL}/reviewTypes/${reviewTypeId}`)
 }
 
 /**
@@ -65,10 +70,11 @@ const headReviewType = async (config, reviewTypeId) => {
  * @param {Object} config Configuration object
  * @param {String} reviewTypeId the review type id
  * @param {Object} reqBody the request body object, include name(review type name) and isActive(active flag) properties
+ * @param {String} jwt The JWT to authenticate the request
  * @returns {Promise}
  */
-const updateReviewType = async (config, reviewTypeId, reqBody) => {
-  return helper.reqToV5API(config, 'PUT', `${config.SUBMISSION_API_URL}/reviewTypes/${reviewTypeId}`, reqBody)
+const updateReviewType = (config, reviewTypeId, reqBody, jwt = null) => {
+  return helper.reqToV5API(config, jwt, 'PUT', `${config.SUBMISSION_API_URL}/reviewTypes/${reviewTypeId}`, reqBody)
 }
 
 /**
@@ -76,20 +82,22 @@ const updateReviewType = async (config, reviewTypeId, reqBody) => {
  * @param {Object} config Configuration object
  * @param {String} reviewTypeId the review type id
  * @param {Object} reqBody the request body object, include name(review type name) and isActive(active flag) properties
+ * @param {String} jwt The JWT to authenticate the request
  * @returns {Promise}
  */
-const patchReviewType = async (config, reviewTypeId, reqBody) => {
-  return helper.reqToV5API(config, 'PATCH', `${config.SUBMISSION_API_URL}/reviewTypes/${reviewTypeId}`, reqBody)
+const patchReviewType = (config, reviewTypeId, reqBody, jwt = null) => {
+  return helper.reqToV5API(config, jwt, 'PATCH', `${config.SUBMISSION_API_URL}/reviewTypes/${reviewTypeId}`, reqBody)
 }
 
 /**
  * Function to delete review type by id.
  * @param {Object} config Configuration object
  * @param {String} reviewTypeId the review type id
+ * @param {String} jwt The JWT to authenticate the request
  * @returns {Promise}
  */
-const deleteReviewType = async (config, reviewTypeId) => {
-  return helper.reqToV5API(config, 'DELETE', `${config.SUBMISSION_API_URL}/reviewTypes/${reviewTypeId}`)
+const deleteReviewType = (config, reviewTypeId, jwt = null) => {
+  return helper.reqToV5API(config, jwt, 'DELETE', `${config.SUBMISSION_API_URL}/reviewTypes/${reviewTypeId}`)
 }
 
 module.exports = {

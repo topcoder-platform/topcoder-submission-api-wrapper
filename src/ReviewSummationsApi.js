@@ -10,11 +10,12 @@ const helper = require('./common/helper')
  * @param {Object} reqQuery the query object, including page(The page number, default value is 1.),
  *   perPage(The number of items to list per page, default value is 20.), submissionId(the submission id filter),
  *   aggregateScore(the aggregate score filter), scoreCardId(the score card id filter) and isPassing (the passing boolean flag filter)
+ * @param {String} jwt The JWT to authenticate the request
  * @returns {Promise} searched review summations
  */
-const searchReviewSummations = async (config, reqQuery) => {
+const searchReviewSummations = (config, reqQuery, jwt = null) => {
   const url = helper.buildURLwithParams(`${config.SUBMISSION_API_URL}/reviewSummations`, reqQuery)
-  return helper.reqToV5API(config, 'GET', url)
+  return helper.reqToV5API(config, jwt, 'GET', url)
 }
 
 /**
@@ -23,11 +24,12 @@ const searchReviewSummations = async (config, reqQuery) => {
  * @param {Object} reqQuery the query object, including page(The page number, default value is 1.),
  *   perPage(The number of items to list per page, default value is 20.), submissionId(the submission id filter),
  *   aggregateScore(the aggregate score filter), scoreCardId(the score card id filter) and isPassing (the passing boolean flag filter)
+ * @param {String} jwt The JWT to authenticate the request
  * @returns {Promise} searched review summations
  */
-const headReviewSummations = async (config, reqQuery) => {
+const headReviewSummations = (config, reqQuery, jwt = null) => {
   const url = helper.buildURLwithParams(`${config.SUBMISSION_API_URL}/reviewSummations`, reqQuery)
-  return helper.reqToV5API(config, 'HEAD', url)
+  return helper.reqToV5API(config, jwt, 'HEAD', url)
 }
 
 /**
@@ -35,30 +37,33 @@ const headReviewSummations = async (config, reqQuery) => {
  * @param {Object} config Configuration object
  * @param {Object} reqBody the request body object, including submissionId(submission id), aggregateScore(aggregate score),
  *   scoreCardId(scorecard id), isPassing(passing boolean flag) and metadata(related metadata) properties
+ * @param {String} jwt The JWT to authenticate the request
  * @returns {Promise} created review summation
  */
-const createReviewSummation = async (config, reqBody) => {
-  return helper.reqToV5API(config, 'POST', `${config.SUBMISSION_API_URL}/reviewSummations`, reqBody)
+const createReviewSummation = (config, reqBody, jwt = null) => {
+  return helper.reqToV5API(config, jwt, 'POST', `${config.SUBMISSION_API_URL}/reviewSummations`, reqBody)
 }
 
 /**
  * Function to get the review summation by id.
  * @param {Object} config Configuration object
  * @param {String} reviewSummationId the review summation id
+ * @param {String} jwt The JWT to authenticate the request
  * @returns {Promise}
  */
-const getReviewSummation = async (config, reviewSummationId) => {
-  return helper.reqToV5API(config, 'GET', `${config.SUBMISSION_API_URL}/reviewSummations/${reviewSummationId}`)
+const getReviewSummation = (config, reviewSummationId, jwt = null) => {
+  return helper.reqToV5API(config, jwt, 'GET', `${config.SUBMISSION_API_URL}/reviewSummations/${reviewSummationId}`)
 }
 
 /**
  * Function to HEAD review summation by id.
  * @param {Object} config Configuration object
  * @param {String} reviewSummationId the review summation id
+ * @param {String} jwt The JWT to authenticate the request
  * @returns {Promise}
  */
-const headReviewSummation = async (config, reviewSummationId) => {
-  return helper.reqToV5API(config, 'HEAD', `${config.SUBMISSION_API_URL}/reviewSummations/${reviewSummationId}`)
+const headReviewSummation = (config, reviewSummationId, jwt = null) => {
+  return helper.reqToV5API(config, jwt, 'HEAD', `${config.SUBMISSION_API_URL}/reviewSummations/${reviewSummationId}`)
 }
 
 /**
@@ -67,10 +72,11 @@ const headReviewSummation = async (config, reviewSummationId) => {
  * @param {String} reviewSummationId the review summation id
  * @param {Object} reqBody the request body object, including submissionId(submission id), aggregateScore(aggregate score),
  *   scoreCardId(scorecard id), isPassing(passing boolean flag) and metadata(related metadata) properties
+ * @param {String} jwt The JWT to authenticate the request
  * @returns {Promise} updated review summation
  */
-const updateReviewSummation = async (config, reviewSummationId, reqBody) => {
-  return helper.reqToV5API(config, 'PUT', `${config.SUBMISSION_API_URL}/reviewSummations/${reviewSummationId}`, reqBody)
+const updateReviewSummation = (config, reviewSummationId, reqBody, jwt = null) => {
+  return helper.reqToV5API(config, jwt, 'PUT', `${config.SUBMISSION_API_URL}/reviewSummations/${reviewSummationId}`, reqBody)
 }
 
 /**
@@ -79,20 +85,22 @@ const updateReviewSummation = async (config, reviewSummationId, reqBody) => {
  * @param {String} reviewSummationId the review summation id
  * @param {Object} reqBody the request body object, including submissionId(submission id), aggregateScore(aggregate score),
  *   scoreCardId(scorecard id), isPassing(passing boolean flag) and metadata(related metadata) properties
+ * @param {String} jwt The JWT to authenticate the request
  * @returns {Promise} updated review summation
  */
-const patchReviewSummation = async (config, reviewSummationId, reqBody) => {
-  return helper.reqToV5API(config, 'PATCH', `${config.SUBMISSION_API_URL}/reviewSummations/${reviewSummationId}`, reqBody)
+const patchReviewSummation = (config, reviewSummationId, reqBody, jwt = null) => {
+  return helper.reqToV5API(config, jwt, 'PATCH', `${config.SUBMISSION_API_URL}/reviewSummations/${reviewSummationId}`, reqBody)
 }
 
 /**
  * Function to delete review summation by id.
  * @param {Object} config Configuration object
  * @param {String} reviewSummationId the review summation id
+ * @param {String} jwt The JWT to authenticate the request
  * @returns {Promise}
  */
-const deleteReviewSummation = async (config, reviewSummationId) => {
-  return helper.reqToV5API(config, 'DELETE', `${config.SUBMISSION_API_URL}/reviewSummations/${reviewSummationId}`)
+const deleteReviewSummation = (config, reviewSummationId, jwt = null) => {
+  return helper.reqToV5API(config, jwt, 'DELETE', `${config.SUBMISSION_API_URL}/reviewSummations/${reviewSummationId}`)
 }
 
 module.exports = {

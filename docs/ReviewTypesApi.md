@@ -22,10 +22,16 @@ Search review types. Link headers are sent back and they have rel set to prev, n
 ### Example
 ```javascript
 const submissionApi = require('topcoder-submission-api-wrapper')
-const submissionApiClient = submissionApi(_.pick(config,
+const submissionApiM2MClient = submissionApi(_.pick(config,
       ['AUTH0_URL', 'AUTH0_AUDIENCE', 'TOKEN_CACHE_TIME',
         'AUTH0_CLIENT_ID', 'AUTH0_CLIENT_SECRET', 'SUBMISSION_API_URL',
         'AUTH0_PROXY_SERVER_URL']))
+
+const submissionApiUserCredentialsClient = submissionApi(_.pick(config,
+      ['USERNAME', 'PASSWORD', 'TC_AUTHN_URL', 'TC_AUTHZ_URL', 'TC_CLIENT_ID',
+       'TC_CLIENT_V2_CONNECTION', 'SUBMISSION_API_URL']))
+
+const submissionApiJwtMethodArgClient = submissionApi(_.pick(config, 'SUBMISSION_API_URL'))
 
 const reqQuery = {
   page: 1,
@@ -35,13 +41,27 @@ const reqQuery = {
 }
 
 // Promise model
-submissionApiClient
+submissionApiM2MClient
   .searchReviewTypes(reqQuery)
   .then(result => console.log(result.body, result.status))
   .catch(err => console.log(err))
 
+submissionApiUserCredentialsClient
+  .searchReviewTypes(reqQuery)
+  .then(result => console.log(result.body, result.status))
+  .catch(err => console.log(err))
+
+submissionApiJwtMethodArgClient
+  .searchReviewTypes(reqQuery, config.JWT)
+  .then(result => console.log(result.body, result.status))
+  .catch(err => console.log(err))
+
 // Async / await model
-await submissionApiClient.searchReviewTypes(reqQuery)
+await submissionApiM2MClient.searchReviewTypes(reqQuery)
+
+await submissionApiUserCredentialsClient.searchReviewTypes(reqQuery)
+
+await submissionApiJwtMethodArgClient.searchReviewTypes(reqQuery, config.JWT)
 ```
 
 ### Parameters
@@ -49,6 +69,7 @@ await submissionApiClient.searchReviewTypes(reqQuery)
 Name | Type | Description
 ------------- | ------------- | -------------
  **reqQuery** | [**Criteria**](Criteria.md)| the search criteria
+ **jwt**      | String | the optional json web token
 
 ### Return type
 
@@ -72,10 +93,16 @@ Same to search review types, but only response status and headers information re
 ### Example
 ```javascript
 const submissionApi = require('topcoder-submission-api-wrapper')
-const submissionApiClient = submissionApi(_.pick(config,
+const submissionApiM2MClient = submissionApi(_.pick(config,
       ['AUTH0_URL', 'AUTH0_AUDIENCE', 'TOKEN_CACHE_TIME',
         'AUTH0_CLIENT_ID', 'AUTH0_CLIENT_SECRET', 'SUBMISSION_API_URL',
         'AUTH0_PROXY_SERVER_URL']))
+
+const submissionApiUserCredentialsClient = submissionApi(_.pick(config,
+      ['USERNAME', 'PASSWORD', 'TC_AUTHN_URL', 'TC_AUTHZ_URL', 'TC_CLIENT_ID',
+       'TC_CLIENT_V2_CONNECTION', 'SUBMISSION_API_URL']))
+
+const submissionApiJwtMethodArgClient = submissionApi(_.pick(config, 'SUBMISSION_API_URL'))
 
 const reqQuery = {
   page: 1,
@@ -85,13 +112,27 @@ const reqQuery = {
 }
 
 // Promise model
-submissionApiClient
+submissionApiM2MClient
   .headReviewTypes(reqQuery)
   .then(result => console.log(result.status))
   .catch(err => console.log(err))
 
+submissionApiUserCredentialsClient
+  .headReviewTypes(reqQuery)
+  .then(result => console.log(result.status))
+  .catch(err => console.log(err))
+
+submissionApiJwtMethodArgClient
+  .headReviewTypes(reqQuery, config.JWT)
+  .then(result => console.log(result.status))
+  .catch(err => console.log(err))
+
 // Async / await model
-await submissionApiClient.headReviewTypes(reqQuery)
+await submissionApiM2MClient.headReviewTypes(reqQuery)
+
+await submissionApiUserCredentialsClient.headReviewTypes(reqQuery)
+
+await submissionApiJwtMethodArgClient.headReviewTypes(reqQuery, config.JWT)
 ```
 
 ### Parameters
@@ -99,6 +140,7 @@ await submissionApiClient.headReviewTypes(reqQuery)
 Name | Type | Description
 ------------- | ------------- | -------------
  **reqQuery** | [**Criteria**](Criteria.md)| the search criteria
+ **jwt**      | String | the optional json web token
 
 ### Return type
 
@@ -122,10 +164,16 @@ Create a review type.
 ### Example
 ```javascript
 const submissionApi = require('topcoder-submission-api-wrapper')
-const submissionApiClient = submissionApi(_.pick(config,
+const submissionApiM2MClient = submissionApi(_.pick(config,
       ['AUTH0_URL', 'AUTH0_AUDIENCE', 'TOKEN_CACHE_TIME',
         'AUTH0_CLIENT_ID', 'AUTH0_CLIENT_SECRET', 'SUBMISSION_API_URL',
         'AUTH0_PROXY_SERVER_URL']))
+
+const submissionApiUserCredentialsClient = submissionApi(_.pick(config,
+      ['USERNAME', 'PASSWORD', 'TC_AUTHN_URL', 'TC_AUTHZ_URL', 'TC_CLIENT_ID',
+       'TC_CLIENT_V2_CONNECTION', 'SUBMISSION_API_URL']))
+
+const submissionApiJwtMethodArgClient = submissionApi(_.pick(config, 'SUBMISSION_API_URL'))
 
 const reqBody = {
   name: 'Review',
@@ -133,13 +181,27 @@ const reqBody = {
 }
 
 // Promise model
-submissionApiClient
+submissionApiM2MClient
   .createReviewType(reqBody)
   .then(result => console.log(result.body, result.status))
   .catch(err => console.log(err))
 
+submissionApiUserCredentialsClient
+  .createReviewType(reqBody)
+  .then(result => console.log(result.body, result.status))
+  .catch(err => console.log(err))
+
+submissionApiJwtMethodArgClient
+  .createReviewType(reqBody, config.JWT)
+  .then(result => console.log(result.body, result.status))
+  .catch(err => console.log(err))
+
 // Async / await model
-await submissionApiClient.createReviewType(reqBody)
+await submissionApiM2MClient.createReviewType(reqBody)
+
+await submissionApiUserCredentialsClient.createReviewType(reqBody)
+
+await submissionApiJwtMethodArgClient.createReviewType(reqBody, config.JWT)
 ```
 
 ### Parameters
@@ -147,6 +209,7 @@ await submissionApiClient.createReviewType(reqBody)
 Name | Type | Description
 ------------- | ------------- | -------------
  **reqBody** | [**ReviewTypeData**](ReviewTypeData.md)| the review type data
+ **jwt**      | String | the optional json web token
 
 ### Return type
 
@@ -170,27 +233,48 @@ Get the review type by id.
 ### Example
 ```javascript
 const submissionApi = require('topcoder-submission-api-wrapper')
-const submissionApiClient = submissionApi(_.pick(config,
+const submissionApiM2MClient = submissionApi(_.pick(config,
       ['AUTH0_URL', 'AUTH0_AUDIENCE', 'TOKEN_CACHE_TIME',
         'AUTH0_CLIENT_ID', 'AUTH0_CLIENT_SECRET', 'SUBMISSION_API_URL',
         'AUTH0_PROXY_SERVER_URL']))
 
+const submissionApiUserCredentialsClient = submissionApi(_.pick(config,
+      ['USERNAME', 'PASSWORD', 'TC_AUTHN_URL', 'TC_AUTHZ_URL', 'TC_CLIENT_ID',
+       'TC_CLIENT_V2_CONNECTION', 'SUBMISSION_API_URL']))
+
+const submissionApiJwtMethodArgClient = submissionApi(_.pick(config, 'SUBMISSION_API_URL'))
+
 const reviewTypeId = '8f4e8b6a-0ad2-4ff6-ab19-afeb102ff3b4'
 
 // Promise model
-submissionApiClient
+submissionApiM2MClient
   .getReviewType(reviewTypeId)
   .then(result => console.log(result.body, result.status))
   .catch(err => console.log(err))
 
+submissionApiUserCredentialsClient
+  .getReviewType(reviewTypeId)
+  .then(result => console.log(result.body, result.status))
+  .catch(err => console.log(err))
+
+submissionApiJwtMethodArgClient
+  .getReviewType(reviewTypeId, config.JWT)
+  .then(result => console.log(result.body, result.status))
+  .catch(err => console.log(err))
+
 // Async / await model
-await submissionApiClient.getReviewType(reviewTypeId)
+await submissionApiM2MClient.getReviewType(reviewTypeId)
+
+await submissionApiUserCredentialsClient.getReviewType(reviewTypeId)
+
+await submissionApiJwtMethodArgClient.getReviewType(reviewTypeId, config.JWT)
 ```
 ### Parameters
 
 Name | Type | Description
 ------------- | ------------- | -------------
  **reviewTypeId** | String | the review type id
+ **jwt**      | String | the optional json web token
 
 ### Return type
 
@@ -214,21 +298,41 @@ Same to get review type, but only response status and headers information return
 ### Example
 ```javascript
 const submissionApi = require('topcoder-submission-api-wrapper')
-const submissionApiClient = submissionApi(_.pick(config,
+const submissionApiM2MClient = submissionApi(_.pick(config,
       ['AUTH0_URL', 'AUTH0_AUDIENCE', 'TOKEN_CACHE_TIME',
         'AUTH0_CLIENT_ID', 'AUTH0_CLIENT_SECRET', 'SUBMISSION_API_URL',
         'AUTH0_PROXY_SERVER_URL']))
 
+const submissionApiUserCredentialsClient = submissionApi(_.pick(config,
+      ['USERNAME', 'PASSWORD', 'TC_AUTHN_URL', 'TC_AUTHZ_URL', 'TC_CLIENT_ID',
+       'TC_CLIENT_V2_CONNECTION', 'SUBMISSION_API_URL']))
+
+const submissionApiJwtMethodArgClient = submissionApi(_.pick(config, 'SUBMISSION_API_URL'))
+
 const reviewTypeId = '8f4e8b6a-0ad2-4ff6-ab19-afeb102ff3b4'
 
 // Promise model
-submissionApiClient
+submissionApiM2MClient
   .headReviewType(reviewTypeId)
   .then(result => console.log(result.status))
   .catch(err => console.log(err))
 
+submissionApiUserCredentialsClient
+  .headReviewType(reviewTypeId)
+  .then(result => console.log(result.status))
+  .catch(err => console.log(err))
+
+submissionApiJwtMethodArgClient
+  .headReviewType(reviewTypeId, config.JWT)
+  .then(result => console.log(result.status))
+  .catch(err => console.log(err))
+
 // Async / await model
-await submissionApiClient.headReviewType(reviewTypeId)
+await submissionApiM2MClient.headReviewType(reviewTypeId)
+
+await submissionApiUserCredentialsClient.headReviewType(reviewTypeId)
+
+await submissionApiJwtMethodArgClient.headReviewType(reviewTypeId, config.JWT)
 ```
 
 ### Parameters
@@ -236,6 +340,7 @@ await submissionApiClient.headReviewType(reviewTypeId)
 Name | Type | Description
 ------------- | ------------- | -------------
  **reviewTypeId** | String | the review type id
+ **jwt**      | String | the optional json web token
 
 ### Return type
 
@@ -259,10 +364,16 @@ Fully update review type.
 ### Example
 ```javascript
 const submissionApi = require('topcoder-submission-api-wrapper')
-const submissionApiClient = submissionApi(_.pick(config,
+const submissionApiM2MClient = submissionApi(_.pick(config,
       ['AUTH0_URL', 'AUTH0_AUDIENCE', 'TOKEN_CACHE_TIME',
         'AUTH0_CLIENT_ID', 'AUTH0_CLIENT_SECRET', 'SUBMISSION_API_URL',
         'AUTH0_PROXY_SERVER_URL']))
+
+const submissionApiUserCredentialsClient = submissionApi(_.pick(config,
+      ['USERNAME', 'PASSWORD', 'TC_AUTHN_URL', 'TC_AUTHZ_URL', 'TC_CLIENT_ID',
+       'TC_CLIENT_V2_CONNECTION', 'SUBMISSION_API_URL']))
+
+const submissionApiJwtMethodArgClient = submissionApi(_.pick(config, 'SUBMISSION_API_URL'))
 
 const reviewTypeId = '8f4e8b6a-0ad2-4ff6-ab19-afeb102ff3b4'
 const reqBody = {
@@ -271,13 +382,27 @@ const reqBody = {
 }
 
 // Promise model
-submissionApiClient
+submissionApiM2MClient
   .updateReviewType(reviewTypeId, reqBody)
   .then(result => console.log(result.body, result.status))
   .catch(err => console.log(err))
 
+submissionApiUserCredentialsClient
+  .updateReviewType(reviewTypeId, reqBody)
+  .then(result => console.log(result.body, result.status))
+  .catch(err => console.log(err))
+
+submissionApiJwtMethodArgClient
+  .updateReviewType(reviewTypeId, reqBody, config.JWT)
+  .then(result => console.log(result.body, result.status))
+  .catch(err => console.log(err))
+
 // Async / await model
-await submissionApiClient.updateReviewType(reviewTypeId, reqBody)
+await submissionApiM2MClient.updateReviewType(reviewTypeId, reqBody)
+
+await submissionApiUserCredentialsClient.updateReviewType(reviewTypeId, reqBody)
+
+await submissionApiJwtMethodArgClient.updateReviewType(reviewTypeId, reqBody, config.JWT)
 ```
 
 ### Parameters
@@ -286,6 +411,7 @@ Name | Type | Description
 ------------- | ------------- | -------------
  **reviewTypeId** | String | the review type id
  **reqBody** | [**ReviewTypeData**](ReviewTypeData.md)| the review type data
+ **jwt**      | String | the optional json web token
 
 ### Return type
 
@@ -309,10 +435,16 @@ Partially update review type.
 ### Example
 ```javascript
 const submissionApi = require('topcoder-submission-api-wrapper')
-const submissionApiClient = submissionApi(_.pick(config,
+const submissionApiM2MClient = submissionApi(_.pick(config,
       ['AUTH0_URL', 'AUTH0_AUDIENCE', 'TOKEN_CACHE_TIME',
         'AUTH0_CLIENT_ID', 'AUTH0_CLIENT_SECRET', 'SUBMISSION_API_URL',
         'AUTH0_PROXY_SERVER_URL']))
+
+const submissionApiUserCredentialsClient = submissionApi(_.pick(config,
+      ['USERNAME', 'PASSWORD', 'TC_AUTHN_URL', 'TC_AUTHZ_URL', 'TC_CLIENT_ID',
+       'TC_CLIENT_V2_CONNECTION', 'SUBMISSION_API_URL']))
+
+const submissionApiJwtMethodArgClient = submissionApi(_.pick(config, 'SUBMISSION_API_URL'))
 
 const reviewTypeId = '8f4e8b6a-0ad2-4ff6-ab19-afeb102ff3b4'
 const reqBody = {
@@ -321,13 +453,27 @@ const reqBody = {
 }
 
 // Promise model
-submissionApiClient
+submissionApiM2MClient
   .patchReviewType(reviewTypeId, reqBody)
   .then(result => console.log(result.body, result.status))
   .catch(err => console.log(err))
 
+submissionApiUserCredentialsClient
+  .patchReviewType(reviewTypeId, reqBody)
+  .then(result => console.log(result.body, result.status))
+  .catch(err => console.log(err))
+
+submissionApiJwtMethodArgClient
+  .patchReviewType(reviewTypeId, reqBody, config.JWT)
+  .then(result => console.log(result.body, result.status))
+  .catch(err => console.log(err))
+
 // Async / await model
-await submissionApiClient.patchReviewType(reviewTypeId, reqBody)
+await submissionApiM2MClient.patchReviewType(reviewTypeId, reqBody)
+
+await submissionApiUserCredentialsClient.patchReviewType(reviewTypeId, reqBody)
+
+await submissionApiJwtMethodArgClient.patchReviewType(reviewTypeId, reqBody, config.JWT)
 ```
 
 ### Parameters
@@ -336,6 +482,7 @@ Name | Type | Description
 ------------- | ------------- | -------------
  **reviewTypeId** | String | the review type id
  **reqBody** | [**ReviewTypeData**](ReviewTypeData.md)| the review type data
+ **jwt**      | String | the optional json web token
 
 ### Return type
 
@@ -359,21 +506,41 @@ Delete review type by id.
 ### Example
 ```javascript
 const submissionApi = require('topcoder-submission-api-wrapper')
-const submissionApiClient = submissionApi(_.pick(config,
+const submissionApiM2MClient = submissionApi(_.pick(config,
       ['AUTH0_URL', 'AUTH0_AUDIENCE', 'TOKEN_CACHE_TIME',
         'AUTH0_CLIENT_ID', 'AUTH0_CLIENT_SECRET', 'SUBMISSION_API_URL',
         'AUTH0_PROXY_SERVER_URL']))
 
+const submissionApiUserCredentialsClient = submissionApi(_.pick(config,
+      ['USERNAME', 'PASSWORD', 'TC_AUTHN_URL', 'TC_AUTHZ_URL', 'TC_CLIENT_ID',
+       'TC_CLIENT_V2_CONNECTION', 'SUBMISSION_API_URL']))
+
+const submissionApiJwtMethodArgClient = submissionApi(_.pick(config, 'SUBMISSION_API_URL'))
+
 const reviewTypeId = '8f4e8b6a-0ad2-4ff6-ab19-afeb102ff3b4'
 
 // Promise model
-submissionApiClient
+submissionApiM2MClient
   .deleteReviewType(reviewTypeId)
   .then(result => console.log(result.status))
   .catch(err => console.log(err))
 
+submissionApiUserCredentialsClient
+  .deleteReviewType(reviewTypeId)
+  .then(result => console.log(result.status))
+  .catch(err => console.log(err))
+
+submissionApiJwtMethodArgClient
+  .deleteReviewType(reviewTypeId, config.JWT)
+  .then(result => console.log(result.status))
+  .catch(err => console.log(err))
+
 // Async / await model
-await submissionApiClient.deleteReviewType(reviewTypeId)
+await submissionApiM2MClient.deleteReviewType(reviewTypeId)
+
+await submissionApiUserCredentialsClient.deleteReviewType(reviewTypeId)
+
+await submissionApiJwtMethodArgClient.deleteReviewType(reviewTypeId, config.JWT)
 ```
 
 ### Parameters
@@ -381,6 +548,7 @@ await submissionApiClient.deleteReviewType(reviewTypeId)
 Name | Type | Description
 ------------- | ------------- | -------------
  **reviewTypeId** | String | the review type id
+ **jwt**      | String | the optional json web token
 
 ### Return type
 
