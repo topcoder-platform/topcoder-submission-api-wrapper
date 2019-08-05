@@ -10,17 +10,17 @@ Wrapper library for Topcoder Submission API
     "topcoder-submission-api-wrapper": "topcoder-platform/topcoder-submission-api-wrapper.git"
     ```
 
-2. Create an instance of this wrapper with the configuration variables listed below
+2. Create an instance of this wrapper with any one of the approaches listed below, depending on your use case
+
+    **M2M Authentication Configuration:**
 
     ```javascript
     const submissionApi = require('topcoder-submission-api-wrapper')
-    const submissionApiClient = submissionApi(_.pick(config,
+    const submissionApiM2MClient = submissionApi(_.pick(config,
           ['AUTH0_URL', 'AUTH0_AUDIENCE', 'TOKEN_CACHE_TIME',
             'AUTH0_CLIENT_ID', 'AUTH0_CLIENT_SECRET', 'SUBMISSION_API_URL',
             'AUTH0_PROXY_SERVER_URL']))
     ```
-
-    **Configuration / Environment variables:**
 
     - AUTH0_URL - the auth0 url
     - AUTH0_AUDIENCE - the auth0 audience
@@ -32,6 +32,31 @@ Wrapper library for Topcoder Submission API
     - PAGE - the page number
     - PER_PAGE - the page size
     - MAX_PAGE_SIZE - the max number of page size
+
+    **User Credentials Authentication Configuration:**
+
+    ```javascript
+    const submissionApiUserCredentialsClient = submissionApi(_.pick(config,
+          ['USERNAME', 'PASSWORD', 'TC_AUTHN_URL', 'TC_AUTHZ_URL', 'TC_CLIENT_ID',
+           'TC_CLIENT_V2CONNECTION', 'SUBMISSION_API_URL']))
+    ```
+
+    - USERNAME - Topcoder handle
+    - PASSWORD - Topcoder password
+    - TC_AUTHN_URL - OAUTH2 token URL, e.g. `https://topcoder.auth0.com/oauth/ro` or for dev `https://topcoder-dev.auth0.com/oauth/ro`
+    - TC_AUTHZ_URL - Topcoder API token URL, e.g. `https://api.topcoder.com/v3/authorizations` or for dev `https://api.topcoder-dev.com/v3/authorizations`
+    - TC_CLIENT_ID - OAUTH2 Client ID, e.g. `6ZwZEUo2ZK4c50aLPpgupeg5v2Ffxp9P` or for dev `JFDo7HMkf0q2CkVFHojy3zHWafziprhT`
+    - TC_CLIENT_V2CONNECTION - The OAUTH2 Client data source, e.g. `LDAP` or for dev `TC-User-Database`
+    - SUBMISSION_API_URL - Topcoder V5 Submission API URL. E.g. `https://api.topcoder.com/v5` or for dev `https://api.topcoder-dev.com/v5`
+
+    **JWT Method Argument Authentication Configuration:**
+
+    ```javascript
+    const submissionJwtMethodArgClient = submissionApi(_.pick(config,
+          ['SUBMISSION_API_URL']))
+    ```
+
+    - SUBMISSION_API_URL - Topcoder V5 Submission API URL. E.g. `https://api.topcoder.com/v5` or for dev `https://api.topcoder-dev.com/v5`
 
 3. Every function in this wrapper will return a promise, Handling promises is at the caller end. Call the functions with appropriate arguments
 
@@ -114,7 +139,7 @@ Method | HTTP request | Description
 
 ## Authorization
 
-The wrapper internally generates a **JWT token using Auth0 credentials** and pass it in the `Authorization` header.
+The wrapper internally generates the JWT token based on the method used when initialising the wrapper (m2m v/s user) or uses the jwt passed during method invocation and passes it in the `Authorization` header.
 
 ## Running tests
 
@@ -126,6 +151,13 @@ Following environment variables need to be set up before running the tests
 - TEST_AUTH0_CLIENT_ID
 - TEST_AUTH0_CLIENT_SECRET
 - TEST_SUBMISSION_API_URL
+- TEST_JWT
+- TEST_USERNAME
+- TEST_PASSWORD
+- TEST_TC_AUTHN_URL
+- TEST_TC_AUTHZ_URL
+- TEST_TC_CLIENT_ID
+- TEST_TC_CLIENT_V2CONNECTION
 ```
 
 Refer to Step # 2 in [this section](#how-to-use-this-wrapper) to learn more about the configuration variables.

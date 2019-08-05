@@ -26,10 +26,16 @@ Search submissions. Link headers are sent back and they have rel set to prev, ne
 ### Example
 ```javascript
 const submissionApi = require('topcoder-submission-api-wrapper')
-const submissionApiClient = submissionApi(_.pick(config,
+const submissionApiM2MClient = submissionApi(_.pick(config,
       ['AUTH0_URL', 'AUTH0_AUDIENCE', 'TOKEN_CACHE_TIME',
         'AUTH0_CLIENT_ID', 'AUTH0_CLIENT_SECRET', 'SUBMISSION_API_URL',
         'AUTH0_PROXY_SERVER_URL']))
+
+const submissionApiUserCredentialsClient = submissionApi(_.pick(config,
+      ['USERNAME', 'PASSWORD', 'TC_AUTHN_URL', 'TC_AUTHZ_URL', 'TC_CLIENT_ID',
+       'TC_CLIENT_V2_CONNECTION', 'SUBMISSION_API_URL']))
+
+const submissionApiJwtMethodArgClient = submissionApi(_.pick(config, 'SUBMISSION_API_URL'))
 
 const reqQuery = {
   page: 1,
@@ -38,13 +44,27 @@ const reqQuery = {
 }
 
 // Promise model
-submissionApiClient
+submissionApiM2MClient
   .searchSubmissions(reqQuery)
   .then(result => console.log(result.body, result.status))
   .catch(err => console.log(err))
 
+submissionApiUserCredentialsClient
+  .searchSubmissions(reqQuery)
+  .then(result => console.log(result.body, result.status))
+  .catch(err => console.log(err))
+
+submissionApiJwtMethodArgClient
+  .searchSubmissions(reqQuery, config.JWT)
+  .then(result => console.log(result.body, result.status))
+  .catch(err => console.log(err))
+
 // Async / await model
-await submissionApiClient.searchSubmissions(reqQuery)
+await submissionApiM2MClient.searchSubmissions(reqQuery)
+
+await submissionApiUserCredentialsClient.searchSubmissions(reqQuery)
+
+await submissionApiJwtMethodArgClient.searchSubmissions(reqQuery, config.JWT)
 ```
 
 ### Parameters
@@ -52,6 +72,7 @@ await submissionApiClient.searchSubmissions(reqQuery)
 Name | Type | Description
 ------------- | ------------- | -------------
  **reqQuery** | [**SearchSubmissionsCriteria**](SearchSubmissionsCriteria.md)| the search submissions criteria
+ **jwt**      | String | the optional json web token
 
 ### Return type
 
@@ -75,10 +96,16 @@ Same to search submissions, but only response status and headers information ret
 ### Example
 ```javascript
 const submissionApi = require('topcoder-submission-api-wrapper')
-const submissionApiClient = submissionApi(_.pick(config,
+const submissionApiM2MClient = submissionApi(_.pick(config,
       ['AUTH0_URL', 'AUTH0_AUDIENCE', 'TOKEN_CACHE_TIME',
         'AUTH0_CLIENT_ID', 'AUTH0_CLIENT_SECRET', 'SUBMISSION_API_URL',
         'AUTH0_PROXY_SERVER_URL']))
+
+const submissionApiUserCredentialsClient = submissionApi(_.pick(config,
+      ['USERNAME', 'PASSWORD', 'TC_AUTHN_URL', 'TC_AUTHZ_URL', 'TC_CLIENT_ID',
+       'TC_CLIENT_V2_CONNECTION', 'SUBMISSION_API_URL']))
+
+const submissionApiJwtMethodArgClient = submissionApi(_.pick(config, 'SUBMISSION_API_URL'))
 
 const reqQuery = {
   page: 1,
@@ -87,13 +114,27 @@ const reqQuery = {
 }
 
 // Promise model
-submissionApiClient
+submissionApiM2MClient
   .headSubmissions(reqQuery)
   .then(result => console.log(result.status))
   .catch(err => console.log(err))
 
+submissionApiUserCredentialsClient
+  .headSubmissions(reqQuery)
+  .then(result => console.log(result.status))
+  .catch(err => console.log(err))
+
+submissionApiJwtMethodArgClient
+  .headSubmissions(reqQuery, config.JWT)
+  .then(result => console.log(result.status))
+  .catch(err => console.log(err))
+
 // Async / await model
-await submissionApiClient.headSubmissions(reqQuery)
+await submissionApiM2MClient.headSubmissions(reqQuery)
+
+await submissionApiUserCredentialsClient.headSubmissions(reqQuery)
+
+await submissionApiJwtMethodArgClient.headSubmissions(reqQuery, config.JWT)
 ```
 
 ### Parameters
@@ -101,6 +142,7 @@ await submissionApiClient.headSubmissions(reqQuery)
 Name | Type | Description
 ------------- | ------------- | -------------
  **reqQuery** | [**SearchSubmissionsCriteria**](SearchSubmissionsCriteria.md)| the search submissions criteria
+ **jwt**      | String | the optional json web token
 
 ### Return type
 
@@ -127,10 +169,16 @@ const path = require('path')
 const fs = require('fs')
 const fileData = fs.readFileSync(path.resolve(__dirname, './data/fileToUpload.zip'))
 const submissionApi = require('topcoder-submission-api-wrapper')
-const submissionApiClient = submissionApi(_.pick(config,
+const submissionApiM2MClient = submissionApi(_.pick(config,
       ['AUTH0_URL', 'AUTH0_AUDIENCE', 'TOKEN_CACHE_TIME',
         'AUTH0_CLIENT_ID', 'AUTH0_CLIENT_SECRET', 'SUBMISSION_API_URL',
         'AUTH0_PROXY_SERVER_URL']))
+
+const submissionApiUserCredentialsClient = submissionApi(_.pick(config,
+      ['USERNAME', 'PASSWORD', 'TC_AUTHN_URL', 'TC_AUTHZ_URL', 'TC_CLIENT_ID',
+       'TC_CLIENT_V2_CONNECTION', 'SUBMISSION_API_URL']))
+
+const submissionApiJwtMethodArgClient = submissionApi(_.pick(config, 'SUBMISSION_API_URL'))
 
 const reqFormData1 = {
   submission: {
@@ -150,13 +198,27 @@ const reqFormData2 = {
 }
 
 // Promise model
-submissionApiClient
+submissionApiM2MClient
   .createSubmission(reqFormData1)
   .then(result => console.log(result.body, result.status))
   .catch(err => console.log(err))
 
+submissionApiUserCredentialsClient
+  .createSubmission(reqFormData1)
+  .then(result => console.log(result.body, result.status))
+  .catch(err => console.log(err))
+
+submissionApiJwtMethodArgClient
+  .createSubmission(reqFormData1, config.JWT)
+  .then(result => console.log(result.body, result.status))
+  .catch(err => console.log(err))
+
 // Async / await model
-await submissionApiClient.createSubmission(reqFormData2)
+await submissionApiM2MClient.createSubmission(reqFormData2)
+
+await submissionApiUserCredentialsClient.createSubmission(reqFormData2)
+
+await submissionApiJwtMethodArgClient.createSubmission(reqFormData2, config.JWT)
 ```
 
 ### Demo
@@ -206,6 +268,7 @@ app.listen(app.get('port'), () => {
 Name | Type | Description
 ------------- | ------------- | -------------
  **reqFormData** | [**SubmissionData**](SubmissionData.md)| the submission data
+ **jwt**      | String | the optional json web token
 
 ### Return type
 
@@ -229,27 +292,48 @@ Get submission by id.
 ### Example
 ```javascript
 const submissionApi = require('topcoder-submission-api-wrapper')
-const submissionApiClient = submissionApi(_.pick(config,
+const submissionApiM2MClient = submissionApi(_.pick(config,
       ['AUTH0_URL', 'AUTH0_AUDIENCE', 'TOKEN_CACHE_TIME',
         'AUTH0_CLIENT_ID', 'AUTH0_CLIENT_SECRET', 'SUBMISSION_API_URL',
         'AUTH0_PROXY_SERVER_URL']))
 
+const submissionApiUserCredentialsClient = submissionApi(_.pick(config,
+      ['USERNAME', 'PASSWORD', 'TC_AUTHN_URL', 'TC_AUTHZ_URL', 'TC_CLIENT_ID',
+       'TC_CLIENT_V2_CONNECTION', 'SUBMISSION_API_URL']))
+
+const submissionApiJwtMethodArgClient = submissionApi(_.pick(config, 'SUBMISSION_API_URL'))
+
 const submissionId = '8f4e8b6a-0ad2-4ff6-ab19-afeb102ff3b4'
 
 // Promise model
-submissionApiClient
+submissionApiM2MClient
   .getSubmission(submissionId)
   .then(result => console.log(result.body, result.status))
   .catch(err => console.log(err))
 
+submissionApiUserCredentialsClient
+  .getSubmission(submissionId)
+  .then(result => console.log(result.body, result.status))
+  .catch(err => console.log(err))
+
+submissionApiJwtMethodArgClient
+  .getSubmission(submissionId, config.JWT)
+  .then(result => console.log(result.body, result.status))
+  .catch(err => console.log(err))
+
 // Async / await model
-await submissionApiClient.getSubmission(submissionId)
+await submissionApiM2MClient.getSubmission(submissionId)
+
+await submissionApiUserCredentialsClient.getSubmission(submissionId)
+
+await submissionApiJwtMethodArgClient.getSubmission(submissionId, config.JWT)
 ```
 ### Parameters
 
 Name | Type | Description
 ------------- | ------------- | -------------
  **submissionId** | String | the submission id
+ **jwt**      | String | the optional json web token
 
 ### Return type
 
@@ -273,21 +357,41 @@ Same to get submission, but only response status and headers information return.
 ### Example
 ```javascript
 const submissionApi = require('topcoder-submission-api-wrapper')
-const submissionApiClient = submissionApi(_.pick(config,
+const submissionApiM2MClient = submissionApi(_.pick(config,
       ['AUTH0_URL', 'AUTH0_AUDIENCE', 'TOKEN_CACHE_TIME',
         'AUTH0_CLIENT_ID', 'AUTH0_CLIENT_SECRET', 'SUBMISSION_API_URL',
         'AUTH0_PROXY_SERVER_URL']))
 
+const submissionApiUserCredentialsClient = submissionApi(_.pick(config,
+      ['USERNAME', 'PASSWORD', 'TC_AUTHN_URL', 'TC_AUTHZ_URL', 'TC_CLIENT_ID',
+       'TC_CLIENT_V2_CONNECTION', 'SUBMISSION_API_URL']))
+
+const submissionApiJwtMethodArgClient = submissionApi(_.pick(config, 'SUBMISSION_API_URL'))
+
 const submissionId = '8f4e8b6a-0ad2-4ff6-ab19-afeb102ff3b4'
 
 // Promise model
-submissionApiClient
+submissionApiM2MClient
   .headSubmission(submissionId)
   .then(result => console.log(result.status))
   .catch(err => console.log(err))
 
+submissionApiUserCredentialsClient
+  .headSubmission(submissionId)
+  .then(result => console.log(result.status))
+  .catch(err => console.log(err))
+
+submissionApiJwtMethodArgClient
+  .headSubmission(submissionId, config.JWT)
+  .then(result => console.log(result.status))
+  .catch(err => console.log(err))
+
 // Async / await model
-await submissionApiClient.headSubmission(submissionId)
+await submissionApiM2MClient.headSubmission(submissionId)
+
+await submissionApiUserCredentialsClient.headSubmission(submissionId)
+
+await submissionApiJwtMethodArgClient.headSubmission(submissionId, config.JWT)
 ```
 
 ### Parameters
@@ -295,6 +399,7 @@ await submissionApiClient.headSubmission(submissionId)
 Name | Type | Description
 ------------- | ------------- | -------------
  **submissionId** | String | the submission id
+ **jwt**      | String | the optional json web token
 
 ### Return type
 
@@ -318,10 +423,16 @@ Fully update submission.
 ### Example
 ```javascript
 const submissionApi = require('topcoder-submission-api-wrapper')
-const submissionApiClient = submissionApi(_.pick(config,
+const submissionApiM2MClient = submissionApi(_.pick(config,
       ['AUTH0_URL', 'AUTH0_AUDIENCE', 'TOKEN_CACHE_TIME',
         'AUTH0_CLIENT_ID', 'AUTH0_CLIENT_SECRET', 'SUBMISSION_API_URL',
         'AUTH0_PROXY_SERVER_URL']))
+
+const submissionApiUserCredentialsClient = submissionApi(_.pick(config,
+      ['USERNAME', 'PASSWORD', 'TC_AUTHN_URL', 'TC_AUTHZ_URL', 'TC_CLIENT_ID',
+       'TC_CLIENT_V2_CONNECTION', 'SUBMISSION_API_URL']))
+
+const submissionApiJwtMethodArgClient = submissionApi(_.pick(config, 'SUBMISSION_API_URL'))
 
 const submissionId = '8f4e8b6a-0ad2-4ff6-ab19-afeb102ff3b4'
 const reqBody = {
@@ -332,13 +443,27 @@ const reqBody = {
 }
 
 // Promise model
-submissionApiClient
+submissionApiM2MClient
   .updateSubmission(submissionId, reqBody)
   .then(result => console.log(result.body, result.status))
   .catch(err => console.log(err))
 
+submissionApiUserCredentialsClient
+  .updateSubmission(submissionId, reqBody)
+  .then(result => console.log(result.body, result.status))
+  .catch(err => console.log(err))
+
+submissionApiJwtMethodArgClient
+  .updateSubmission(submissionId, reqBody, config.JWT)
+  .then(result => console.log(result.body, result.status))
+  .catch(err => console.log(err))
+
 // Async / await model
-await submissionApiClient.updateSubmission(submissionId, reqBody)
+await submissionApiM2MClient.updateSubmission(submissionId, reqBody)
+
+await submissionApiUserCredentialsClient.updateSubmission(submissionId, reqBody)
+
+await submissionApiJwtMethodArgClient.updateSubmission(submissionId, reqBody, config.JWT)
 ```
 
 ### Parameters
@@ -347,6 +472,7 @@ Name | Type | Description
 ------------- | ------------- | -------------
  **submissionId** | String | the submission id
  **reqBody** | [**SubmissionUpdataData**](SubmissionUpdataData.md)| the submission data
+ **jwt**      | String | the optional json web token
 
 ### Return type
 
@@ -370,10 +496,16 @@ Partially update submission.
 ### Example
 ```javascript
 const submissionApi = require('topcoder-submission-api-wrapper')
-const submissionApiClient = submissionApi(_.pick(config,
+const submissionApiM2MClient = submissionApi(_.pick(config,
       ['AUTH0_URL', 'AUTH0_AUDIENCE', 'TOKEN_CACHE_TIME',
         'AUTH0_CLIENT_ID', 'AUTH0_CLIENT_SECRET', 'SUBMISSION_API_URL',
         'AUTH0_PROXY_SERVER_URL']))
+
+const submissionApiUserCredentialsClient = submissionApi(_.pick(config,
+      ['USERNAME', 'PASSWORD', 'TC_AUTHN_URL', 'TC_AUTHZ_URL', 'TC_CLIENT_ID',
+       'TC_CLIENT_V2_CONNECTION', 'SUBMISSION_API_URL']))
+
+const submissionApiJwtMethodArgClient = submissionApi(_.pick(config, 'SUBMISSION_API_URL'))
 
 const submissionId = '8f4e8b6a-0ad2-4ff6-ab19-afeb102ff3b4'
 const reqBody = {
@@ -382,13 +514,27 @@ const reqBody = {
 }
 
 // Promise model
-submissionApiClient
+submissionApiM2MClient
   .patchSubmission(submissionId, reqBody)
   .then(result => console.log(result.body, result.status))
   .catch(err => console.log(err))
 
+submissionApiUserCredentialsClient
+  .patchSubmission(submissionId, reqBody)
+  .then(result => console.log(result.body, result.status))
+  .catch(err => console.log(err))
+
+submissionApiJwtMethodArgClient
+  .patchSubmission(submissionId, reqBody, config.JWT)
+  .then(result => console.log(result.body, result.status))
+  .catch(err => console.log(err))
+
 // Async / await model
-await submissionApiClient.patchSubmission(submissionId, reqBody)
+await submissionApiM2MClient.patchSubmission(submissionId, reqBody)
+
+await submissionApiUserCredentialsClient.patchSubmission(submissionId, reqBody)
+
+await submissionApiJwtMethodArgClient.patchSubmission(submissionId, reqBody, config.JWT)
 ```
 
 ### Parameters
@@ -397,6 +543,7 @@ Name | Type | Description
 ------------- | ------------- | -------------
  **submissionId** | String | the submission id
  **reqBody** | [**SubmissionUpdataData**](SubmissionUpdataData.md)| the submission data
+ **jwt**      | String | the optional json web token
 
 ### Return type
 
@@ -420,21 +567,41 @@ Delete submission by id.
 ### Example
 ```javascript
 const submissionApi = require('topcoder-submission-api-wrapper')
-const submissionApiClient = submissionApi(_.pick(config,
+const submissionApiM2MClient = submissionApi(_.pick(config,
       ['AUTH0_URL', 'AUTH0_AUDIENCE', 'TOKEN_CACHE_TIME',
         'AUTH0_CLIENT_ID', 'AUTH0_CLIENT_SECRET', 'SUBMISSION_API_URL',
         'AUTH0_PROXY_SERVER_URL']))
 
+const submissionApiUserCredentialsClient = submissionApi(_.pick(config,
+      ['USERNAME', 'PASSWORD', 'TC_AUTHN_URL', 'TC_AUTHZ_URL', 'TC_CLIENT_ID',
+       'TC_CLIENT_V2_CONNECTION', 'SUBMISSION_API_URL']))
+
+const submissionApiJwtMethodArgClient = submissionApi(_.pick(config, 'SUBMISSION_API_URL'))
+
 const submissionId = '8f4e8b6a-0ad2-4ff6-ab19-afeb102ff3b4'
 
 // Promise model
-submissionApiClient
+submissionApiM2MClient
   .deleteSubmission(submissionId)
   .then(result => console.log(result.status))
   .catch(err => console.log(err))
 
+submissionApiUserCredentialsClient
+  .deleteSubmission(submissionId)
+  .then(result => console.log(result.status))
+  .catch(err => console.log(err))
+
+submissionApiJwtMethodArgClient
+  .deleteSubmission(submissionId, config.JWT)
+  .then(result => console.log(result.status))
+  .catch(err => console.log(err))
+
 // Async / await model
-await submissionApiClient.deleteSubmission(submissionId)
+await submissionApiM2MClient.deleteSubmission(submissionId)
+
+await submissionApiUserCredentialsClient.deleteSubmission(submissionId)
+
+await submissionApiJwtMethodArgClient.deleteSubmission(submissionId, config.JWT)
 ```
 
 ### Parameters
@@ -442,6 +609,7 @@ await submissionApiClient.deleteSubmission(submissionId)
 Name | Type | Description
 ------------- | ------------- | -------------
  **submissionId** | String | the submission id
+ **jwt**      | String | the optional json web token
 
 ### Return type
 
@@ -465,21 +633,41 @@ Download submission by id.
 ### Example
 ```javascript
 const submissionApi = require('topcoder-submission-api-wrapper')
-const submissionApiClient = submissionApi(_.pick(config,
+const submissionApiM2MClient = submissionApi(_.pick(config,
       ['AUTH0_URL', 'AUTH0_AUDIENCE', 'TOKEN_CACHE_TIME',
         'AUTH0_CLIENT_ID', 'AUTH0_CLIENT_SECRET', 'SUBMISSION_API_URL',
         'AUTH0_PROXY_SERVER_URL']))
 
+const submissionApiUserCredentialsClient = submissionApi(_.pick(config,
+      ['USERNAME', 'PASSWORD', 'TC_AUTHN_URL', 'TC_AUTHZ_URL', 'TC_CLIENT_ID',
+       'TC_CLIENT_V2_CONNECTION', 'SUBMISSION_API_URL']))
+
+const submissionApiJwtMethodArgClient = submissionApi(_.pick(config, 'SUBMISSION_API_URL'))
+
 const submissionId = '8f4e8b6a-0ad2-4ff6-ab19-afeb102ff3b4'
 
 // Promise model
-submissionApiClient
+submissionApiM2MClient
   .downloadSubmission(submissionId)
   .then(result => console.log(result.status, result.body))
   .catch(err => console.log(err))
 
+submissionApiUserCredentialsClient
+  .downloadSubmission(submissionId)
+  .then(result => console.log(result.status, result.body))
+  .catch(err => console.log(err))
+
+submissionApiJwtMethodArgClient
+  .downloadSubmission(submissionId, config.JWT)
+  .then(result => console.log(result.status, result.body))
+  .catch(err => console.log(err))
+
 // Async / await model
-await submissionApiClient.downloadSubmission(submissionId)
+await submissionApiM2MClient.downloadSubmission(submissionId)
+
+await submissionApiUserCredentialsClient.downloadSubmission(submissionId)
+
+await submissionApiJwtMethodArgClient.downloadSubmission(submissionId, config.JWT)
 ```
 
 ### Demo
@@ -526,6 +714,7 @@ app.listen(app.get('port'), () => {
 Name | Type | Description
 ------------- | ------------- | -------------
  **submissionId** | String | the submission id
+ **jwt**      | String | the optional json web token
 
 ### Return type
 
@@ -552,10 +741,16 @@ const path = require('path')
 const fs = require('fs')
 const fileData = fs.readFileSync(path.resolve(__dirname, './data/fileToUpload.zip'))
 const submissionApi = require('topcoder-submission-api-wrapper')
-const submissionApiClient = submissionApi(_.pick(config,
+const submissionApiM2MClient = submissionApi(_.pick(config,
       ['AUTH0_URL', 'AUTH0_AUDIENCE', 'TOKEN_CACHE_TIME',
         'AUTH0_CLIENT_ID', 'AUTH0_CLIENT_SECRET', 'SUBMISSION_API_URL',
         'AUTH0_PROXY_SERVER_URL']))
+
+const submissionApiUserCredentialsClient = submissionApi(_.pick(config,
+      ['USERNAME', 'PASSWORD', 'TC_AUTHN_URL', 'TC_AUTHZ_URL', 'TC_CLIENT_ID',
+       'TC_CLIENT_V2_CONNECTION', 'SUBMISSION_API_URL']))
+
+const submissionApiJwtMethodArgClient = submissionApi(_.pick(config, 'SUBMISSION_API_URL'))
 
 const submissionId = '8f4e8b6a-0ad2-4ff6-ab19-afeb102ff3b4'
 const reqFormData = {
@@ -567,13 +762,27 @@ const reqFormData = {
 }
 
 // Promise model
-submissionApiClient
+submissionApiM2MClient
   .createArtifact(submissionId, reqFormData)
   .then(result => console.log(result.body, result.status))
   .catch(err => console.log(err))
 
+submissionApiUserCredentialsClient
+  .createArtifact(submissionId, reqFormData)
+  .then(result => console.log(result.body, result.status))
+  .catch(err => console.log(err))
+
+submissionApiJwtMethodArgClient
+  .createArtifact(submissionId, reqFormData, config.JWT)
+  .then(result => console.log(result.body, result.status))
+  .catch(err => console.log(err))
+
 // Async / await model
-await submissionApiClient.createArtifact(submissionId, reqFormData)
+await submissionApiM2MClient.createArtifact(submissionId, reqFormData)
+
+await submissionApiUserCredentialsClient.createArtifact(submissionId, reqFormData)
+
+await submissionApiJwtMethodArgClient.createArtifact(submissionId, reqFormData, config.JWT)
 ```
 
 ### Demo
@@ -624,6 +833,7 @@ Name | Type | Description
 ------------- | ------------- | -------------
  **submissionId** | String | the submission id
  **reqFormData** | [**ArtifactData**](ArtifactData.md)| the artifact
+ **jwt**      | String | the optional json web token
 
 ### Return type
 
@@ -647,21 +857,41 @@ List artifacts of specified submission
 ### Example
 ```javascript
 const submissionApi = require('topcoder-submission-api-wrapper')
-const submissionApiClient = submissionApi(_.pick(config,
+const submissionApiM2MClient = submissionApi(_.pick(config,
       ['AUTH0_URL', 'AUTH0_AUDIENCE', 'TOKEN_CACHE_TIME',
         'AUTH0_CLIENT_ID', 'AUTH0_CLIENT_SECRET', 'SUBMISSION_API_URL',
         'AUTH0_PROXY_SERVER_URL']))
 
+const submissionApiUserCredentialsClient = submissionApi(_.pick(config,
+      ['USERNAME', 'PASSWORD', 'TC_AUTHN_URL', 'TC_AUTHZ_URL', 'TC_CLIENT_ID',
+       'TC_CLIENT_V2_CONNECTION', 'SUBMISSION_API_URL']))
+
+const submissionApiJwtMethodArgClient = submissionApi(_.pick(config, 'SUBMISSION_API_URL'))
+
 const submissionId = '8f4e8b6a-0ad2-4ff6-ab19-afeb102ff3b4'
 
 // Promise model
-submissionApiClient
+submissionApiM2MClient
   .listArtifacts(submissionId)
   .then(result => console.log(result.body, result.status))
   .catch(err => console.log(err))
 
+submissionApiUserCredentialsClient
+  .listArtifacts(submissionId)
+  .then(result => console.log(result.body, result.status))
+  .catch(err => console.log(err))
+
+submissionApiJwtMethodArgClient
+  .listArtifacts(submissionId, config.JWT)
+  .then(result => console.log(result.body, result.status))
+  .catch(err => console.log(err))
+
 // Async / await model
-await submissionApiClient.listArtifacts(submissionId)
+await submissionApiM2MClient.listArtifacts(submissionId)
+
+await submissionApiUserCredentialsClient.listArtifacts(submissionId)
+
+await submissionApiJwtMethodArgClient.listArtifacts(submissionId, config.JWT)
 ```
 
 ### Parameters
@@ -669,6 +899,7 @@ await submissionApiClient.listArtifacts(submissionId)
 Name | Type | Description
 ------------- | ------------- | -------------
  **submissionId** | String | the submission id
+ **jwt**      | String | the optional json web token
 
 ### Return type
 
@@ -692,22 +923,42 @@ Download artifact using submission id and artifact id.
 ### Example
 ```javascript
 const submissionApi = require('topcoder-submission-api-wrapper')
-const submissionApiClient = submissionApi(_.pick(config,
+const submissionApiM2MClient = submissionApi(_.pick(config,
       ['AUTH0_URL', 'AUTH0_AUDIENCE', 'TOKEN_CACHE_TIME',
         'AUTH0_CLIENT_ID', 'AUTH0_CLIENT_SECRET', 'SUBMISSION_API_URL',
         'AUTH0_PROXY_SERVER_URL']))
+
+const submissionApiUserCredentialsClient = submissionApi(_.pick(config,
+      ['USERNAME', 'PASSWORD', 'TC_AUTHN_URL', 'TC_AUTHZ_URL', 'TC_CLIENT_ID',
+       'TC_CLIENT_V2_CONNECTION', 'SUBMISSION_API_URL']))
+
+const submissionApiJwtMethodArgClient = submissionApi(_.pick(config, 'SUBMISSION_API_URL'))
 
 const submissionId = '8f4e8b6a-0ad2-4ff6-ab19-afeb102ff3b4'
 const artifactId = 'c56a4180-65aa-42ec-a945-5fd21dec0503'
 
 // Promise model
-submissionApiClient
+submissionApiM2MClient
   .downloadArtifact(submissionId, artifactId)
   .then(result => console.log(result.status, result.body))
   .catch(err => console.log(err))
 
+submissionApiUserCredentialsClient
+  .downloadArtifact(submissionId, artifactId)
+  .then(result => console.log(result.status, result.body))
+  .catch(err => console.log(err))
+
+submissionApiJwtMethodArgClient
+  .downloadArtifact(submissionId, artifactId, config.JWT)
+  .then(result => console.log(result.status, result.body))
+  .catch(err => console.log(err))
+
 // Async / await model
-await submissionApiClient.downloadArtifact(submissionId, artifactId)
+await submissionApiM2MClient.downloadArtifact(submissionId, artifactId)
+
+await submissionApiUserCredentialsClient.downloadArtifact(submissionId, artifactId)
+
+await submissionApiJwtMethodArgClient.downloadArtifact(submissionId, artifactId, config.JWT)
 ```
 
 ### Demo
@@ -755,6 +1006,7 @@ Name | Type | Description
 ------------- | ------------- | -------------
  **submissionId** | String | the submission id
  **artifactId** | String | the artifact id
+ **jwt**      | String | the optional json web token
 
 ### Return type
 
