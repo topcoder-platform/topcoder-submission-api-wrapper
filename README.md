@@ -136,6 +136,7 @@ Method | HTTP request | Description
 [**createArtifact**](docs/SubmissionsApi.md#createArtifact) | **POST** /submissions/{submissionId}/artifacts | Create artifact for submission.
 [**listArtifacts**](docs/SubmissionsApi.md#listArtifacts) | **GET** /submissions/{submissionId}/artifacts | List artifacts of specified submission.
 [**downloadArtifact**](docs/SubmissionsApi.md#downloadArtifact) | **GET** /submissions/{submissionId}/artifacts/{artifactId}/download | Download artifact
+[**deleteArtifact**](docs/SubmissionsApi.md#deleteArtifact) | **DELETE** /submissions/{submissionId}/artifacts/{artifactId} | Delete artifact
 
 ## Authorization
 

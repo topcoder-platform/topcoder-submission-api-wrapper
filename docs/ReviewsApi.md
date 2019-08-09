@@ -15,7 +15,7 @@ Method | HTTP request | Description
 
 <a name="searchReviews"></a>
 # **searchReviews**
-> searchReviews(reqQuery)
+> searchReviews(reqQuery[, jwt])
 
 Search reviews. Link headers are sent back and they have rel set to prev, next, first, last and contain the relevant URL.
 
@@ -87,7 +87,7 @@ Array of [**Review**](Review.md)
 
 <a name="headReviews"></a>
 # **headReviews**
-> headReviews(reqQuery)
+> headReviews(reqQuery[, jwt])
 
 Same to search reviews, but only response status and headers information return.
 
@@ -157,7 +157,7 @@ null (empty response body)
 
 <a name="createReview"></a>
 # **createReview**
-> createReview(reqBody)
+> createReview(reqBody[, jwt])
 
 Create a review.
 
@@ -230,7 +230,7 @@ Name | Type | Description
 
 <a name="getReview"></a>
 # **getReview**
-> getReview(reviewId)
+> getReview(reviewId[, jwt])
 
 Get the review by id.
 
@@ -296,7 +296,7 @@ Name | Type | Description
 
 <a name="headReview"></a>
 # **headReview**
-> headReview(reviewId)
+> headReview(reviewId[, jwt])
 
 Same to get review, but only response status and headers information return.
 
@@ -362,7 +362,7 @@ null (empty response body)
 
 <a name="updateReview"></a>
 # **updateReview**
-> updateReview(reviewId, reqBody)
+> updateReview(reviewId, reqBody[, jwt])
 
 Fully update review.
 
@@ -437,7 +437,7 @@ Name | Type | Description
 
 <a name="patchReview"></a>
 # **patchReview**
-> patchReview(reviewId, reqBody)
+> patchReview(reviewId, reqBody[, jwt])
 
 Partially update review.
 
@@ -510,7 +510,7 @@ Name | Type | Description
 
 <a name="deleteReview"></a>
 # **deleteReview**
-> deleteReview(reviewId)
+> deleteReview(reviewId[, jwt])
 
 Delete review by id.
 

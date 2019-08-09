@@ -16,10 +16,11 @@ Method | HTTP request | Description
 [**createArtifact**](SubmissionsApi.md#createArtifact) | **POST** /submissions/{submissionId}/artifacts | Create artifact for submission.
 [**listArtifacts**](SubmissionsApi.md#listArtifacts) | **GET** /submissions/{submissionId}/artifacts | List artifacts of specified submission.
 [**downloadArtifact**](SubmissionsApi.md#downloadArtifact) | **GET** /submissions/{submissionId}/artifacts/{artifactId}/download | Download artifact
+[**deleteArtifact**](SubmissionsApi.md#deleteArtifact) | **DELETE** /submissions/{submissionId}/artifacts/{artifactId} | Delete artifact
 
 <a name="searchSubmissions"></a>
 # **searchSubmissions**
-> searchSubmissions(reqQuery)
+> searchSubmissions(reqQuery[, jwt])
 
 Search submissions. Link headers are sent back and they have rel set to prev, next, first, last and contain the relevant URL.
 
@@ -89,7 +90,7 @@ Array of [**Submission**](Submission.md)
 
 <a name="headSubmissions"></a>
 # **headSubmissions**
-> headSubmissions(reqQuery)
+> headSubmissions(reqQuery[, jwt])
 
 Same to search submissions, but only response status and headers information return.
 
@@ -159,7 +160,7 @@ null (empty response body)
 
 <a name="createSubmission"></a>
 # **createSubmission**
-> createSubmission(reqFormData)
+> createSubmission(reqFormData[, jwt])
 
 Create a submission.
 
@@ -285,7 +286,7 @@ Name | Type | Description
 
 <a name="getSubmission"></a>
 # **getSubmission**
-> getSubmission(submissionId)
+> getSubmission(submissionId[, jwt])
 
 Get submission by id.
 
@@ -350,7 +351,7 @@ Name | Type | Description
 
 <a name="headSubmission"></a>
 # **headSubmission**
-> headSubmission(submissionId)
+> headSubmission(submissionId[, jwt])
 
 Same to get submission, but only response status and headers information return.
 
@@ -416,7 +417,7 @@ null (empty response body)
 
 <a name="updateSubmission"></a>
 # **updateSubmission**
-> updateSubmission(submissionId, reqBody)
+> updateSubmission(submissionId, reqBody[, jwt])
 
 Fully update submission.
 
@@ -489,7 +490,7 @@ Name | Type | Description
 
 <a name="patchSubmission"></a>
 # **patchSubmission**
-> patchSubmission(submissionId, reqBody)
+> patchSubmission(submissionId, reqBody[, jwt])
 
 Partially update submission.
 
@@ -560,7 +561,7 @@ Name | Type | Description
 
 <a name="deleteSubmission"></a>
 # **deleteSubmission**
-> deleteSubmission(submissionId)
+> deleteSubmission(submissionId[, jwt])
 
 Delete submission by id.
 
@@ -626,7 +627,7 @@ null (empty response body)
 
 <a name="downloadSubmission"></a>
 # **downloadSubmission**
-> downloadSubmission(submissionId)
+> downloadSubmission(submissionId[, jwt])
 
 Download submission by id.
 
@@ -731,7 +732,7 @@ Binary data
 
 <a name="createArtifact"></a>
 # **createArtifact**
-> createArtifact(submissionId, reqFormData)
+> createArtifact(submissionId, reqFormData[, jwt])
 
 Create artifact for submission
 
@@ -850,7 +851,7 @@ Name | Type | Description
 
 <a name="listArtifacts"></a>
 # **listArtifacts**
-> listArtifacts(submissionId)
+> listArtifacts(submissionId[, jwt])
 
 List artifacts of specified submission
 
@@ -916,7 +917,7 @@ Name | Type | Description
 
 <a name="downloadArtifact"></a>
 # **downloadArtifact**
-> downloadArtifact(submissionId, artifactId)
+> downloadArtifact(submissionId, artifactId[, jwt])
 
 Download artifact using submission id and artifact id.
 
@@ -1011,6 +1012,74 @@ Name | Type | Description
 ### Return type
 
 Binary data
+
+### Authorization
+
+[Bearer](../README.md#authorization)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+<a name="deleteArtifact"></a>
+# **deleteArtifact**
+> deleteArtifact(submissionId, artifactId[, jwt])
+
+Delete artifact using submission id and artifact id.
+
+### Example
+```javascript
+const submissionApi = require('topcoder-submission-api-wrapper')
+const submissionApiM2MClient = submissionApi(_.pick(config,
+      ['AUTH0_URL', 'AUTH0_AUDIENCE', 'TOKEN_CACHE_TIME',
+        'AUTH0_CLIENT_ID', 'AUTH0_CLIENT_SECRET', 'SUBMISSION_API_URL',
+        'AUTH0_PROXY_SERVER_URL']))
+
+const submissionApiUserCredentialsClient = submissionApi(_.pick(config,
+      ['USERNAME', 'PASSWORD', 'TC_AUTHN_URL', 'TC_AUTHZ_URL', 'TC_CLIENT_ID',
+       'TC_CLIENT_V2_CONNECTION', 'SUBMISSION_API_URL']))
+
+const submissionApiJwtMethodArgClient = submissionApi(_.pick(config, 'SUBMISSION_API_URL'))
+
+const submissionId = '8f4e8b6a-0ad2-4ff6-ab19-afeb102ff3b4'
+const artifactId = 'c56a4180-65aa-42ec-a945-5fd21dec0503'
+
+// Promise model
+submissionApiM2MClient
+  .deleteArtifact(submissionId, artifactId)
+  .then(result => console.log(result.status))
+  .catch(err => console.log(err))
+
+submissionApiUserCredentialsClient
+  .deleteArtifact(submissionId, artifactId)
+  .then(result => console.log(result.status))
+  .catch(err => console.log(err))
+
+submissionApiJwtMethodArgClient
+  .deleteArtifact(submissionId, artifactId, config.JWT)
+  .then(result => console.log(result.status))
+  .catch(err => console.log(err))
+
+// Async / await model
+await submissionApiM2MClient.deleteSubmission(submissionId, artifactId)
+
+await submissionApiUserCredentialsClient.deleteSubmission(submissionId, artifactId)
+
+await submissionApiJwtMethodArgClient.deleteSubmission(submissionId, artifactId, config.JWT)
+```
+
+### Parameters
+
+Name | Type | Description
+------------- | ------------- | -------------
+ **submissionId** | String | the submission id
+ **artifactId** | String | the artifact id
+ **jwt**      | String | the optional json web token
+
+### Return type
+
+null (empty response body)
 
 ### Authorization
 

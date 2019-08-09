@@ -15,7 +15,7 @@ Method | HTTP request | Description
 
 <a name="searchReviewTypes"></a>
 # **searchReviewTypes**
-> searchReviewTypes(reqQuery)
+> searchReviewTypes(reqQuery[, jwt])
 
 Search review types. Link headers are sent back and they have rel set to prev, next, first, last and contain the relevant URL.
 
@@ -86,7 +86,7 @@ Array of [**ReviewType**](ReviewType.md)
 
 <a name="headReviewTypes"></a>
 # **headReviewTypes**
-> headReviewTypes(reqQuery)
+> headReviewTypes(reqQuery[, jwt])
 
 Same to search review types, but only response status and headers information return.
 
@@ -157,7 +157,7 @@ null (empty response body)
 
 <a name="createReviewType"></a>
 # **createReviewType**
-> createReviewType(reqBody)
+> createReviewType(reqBody[, jwt])
 
 Create a review type.
 
@@ -226,7 +226,7 @@ Name | Type | Description
 
 <a name="getReviewType"></a>
 # **getReviewType**
-> getReviewType(reviewTypeId)
+> getReviewType(reviewTypeId[, jwt])
 
 Get the review type by id.
 
@@ -291,7 +291,7 @@ Name | Type | Description
 
 <a name="headReviewType"></a>
 # **headReviewType**
-> headReviewType(reviewTypeId)
+> headReviewType(reviewTypeId[, jwt])
 
 Same to get review type, but only response status and headers information return.
 
@@ -357,7 +357,7 @@ null (empty response body)
 
 <a name="updateReviewType"></a>
 # **updateReviewType**
-> updateReviewType(reviewTypeId, reqBody)
+> updateReviewType(reviewTypeId, reqBody[, jwt])
 
 Fully update review type.
 
@@ -428,7 +428,7 @@ Name | Type | Description
 
 <a name="patchReviewType"></a>
 # **patchReviewType**
-> patchReviewType(reviewTypeId, reqBody)
+> patchReviewType(reviewTypeId, reqBody[, jwt])
 
 Partially update review type.
 
@@ -499,7 +499,7 @@ Name | Type | Description
 
 <a name="deleteReviewType"></a>
 # **deleteReviewType**
-> deleteReviewType(reviewTypeId)
+> deleteReviewType(reviewTypeId[, jwt])
 
 Delete review type by id.
 

@@ -337,5 +337,13 @@ module.exports = {
         fileName: joi.string().trim().required()
       }
     }
+  },
+  '/submissions/:id/artifacts/:file': {
+    delete: {
+      schema: {
+        submissionId: joi.string().uuid().required(),
+        fileName: joi.string().trim().required()
+      }
+    }
   }
 }

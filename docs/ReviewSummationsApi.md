@@ -15,7 +15,7 @@ Method | HTTP request | Description
 
 <a name="searchReviewSummations"></a>
 # **searchReviewSummations**
-> searchReviewSummations(reqQuery)
+> searchReviewSummations(reqQuery[, jwt])
 
 Search review summations. Link headers are sent back and they have rel set to prev, next, first, last and contain the relevant URL.
 
@@ -89,7 +89,7 @@ Array of [**ReviewSummation**](ReviewSummation.md)
 <a name="headReviewSummations"></a>
 
 # **headReviewSummations**
-> headReviewSummations(reqQuery)
+> headReviewSummations(reqQuery[, jwt])
 
 Same to search review summations, but only response status and headers information return.
 
@@ -163,7 +163,7 @@ null (empty response body)
 <a name="createReviewSummation"></a>
 
 # **createReviewSummation**
-> createReviewSummation(reqBody)
+> createReviewSummation(reqBody[, jwt])
 
 Create a review summation.
 
@@ -236,7 +236,7 @@ Name | Type | Description
 <a name="getReviewSummation"></a>
 
 # **getReviewSummation**
-> getReviewSummation(reviewSummationId)
+> getReviewSummation(reviewSummationId[, jwt])
 
 Get the review summation by id.
 
@@ -302,7 +302,7 @@ Name | Type | Description
 <a name="headReviewSummation"></a>
 
 # **headReviewSummation**
-> headReviewSummation(reviewSummationId)
+> headReviewSummation(reviewSummationId[, jwt])
 
 Same to get review summation, but only response status and headers information return.
 
@@ -369,7 +369,7 @@ null (empty response body)
 <a name="updateReviewSummation"></a>
 
 # **updateReviewSummation**
-> updateReviewSummation(reviewSummationId, reqBody)
+> updateReviewSummation(reviewSummationId, reqBody[, jwt])
 
 Fully update review summation.
 
@@ -444,7 +444,7 @@ Name | Type | Description
 <a name="patchReviewSummation"></a>
 
 # **patchReviewSummation**
-> patchReviewSummation(reviewSummationId, reqBody)
+> patchReviewSummation(reviewSummationId, reqBody[, jwt])
 
 Partially update review summation.
 
@@ -516,7 +516,7 @@ Name | Type | Description
 <a name="deleteReviewSummation"></a>
 
 # **deleteReviewSummation**
-> deleteReviewSummation(reviewSummationId)
+> deleteReviewSummation(reviewSummationId[, jwt])
 
 Delete review summation by id.
 

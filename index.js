@@ -240,6 +240,10 @@ module.exports = (allConfig) => {
     // Download artifact
     downloadArtifact: (submissionId, artifactId, jwt) => {
       return require('./src/SubmissionsApi').downloadArtifact(config, submissionId, artifactId, jwt)
+    },
+    // Delete artifact
+    deleteArtifact: (submissionId, artifactId, jwt) => {
+      return require('./src/SubmissionsApi').deleteArtifact(config, submissionId, artifactId, jwt)
     }
   }
 }

@@ -626,6 +626,52 @@ for (const c of [ [ m2mClient, m2mFailClient, 'M2M' ],
       })
     })
 
+    describe('Test delete artifact', () => {
+      it(`Delete artifact success`, async () => {
+        const res = await client.deleteArtifact(createdSubmissionId1, artifactId)
+        should.equal(res.status, 204)
+      })
+
+      it(`failure - Delete artifact invalid submissionId`, async () => {
+        try {
+          await client.deleteArtifact('invalid', artifactId)
+          throw new Error('should not throw error here')
+        } catch (err) {
+          should.equal(err.status, 400)
+          should.equal(err.response.body.message, `"submissionId" must be a valid GUID`)
+        }
+      })
+
+      it(`failure - Delete artifact submission not found`, async () => {
+        try {
+          await client.deleteArtifact(notFoundId, artifactId)
+          throw new Error('should not throw error here')
+        } catch (err) {
+          should.equal(err.status, 400)
+          should.equal(err.response.body.message, `Submission with ID = ${notFoundId} does not exist`)
+        }
+      })
+
+      it(`failure - Delete artifact artifact not found`, async () => {
+        try {
+          await client.deleteArtifact(createdSubmissionId1, notFoundId)
+          throw new Error('should not throw error here')
+        } catch (err) {
+          should.equal(err.status, 400)
+          should.equal(err.response.body.message, `Artifact ${notFoundId} doesn't exist for ${createdSubmissionId1}`)
+        }
+      })
+
+      it(`failure - Delete artifact with invalid credential`, async () => {
+        try {
+          await failClient.deleteArtifact(createdSubmissionId1, artifactId)
+          throw new Error('should not throw error here')
+        } catch (err) {
+          should.not.equal(err.message, 'should not throw error here')
+        }
+      })
+    })
+
     describe('Test delete submission', () => {
       it(`Delete submission 1 success`, async () => {
         const res = await client.deleteSubmission(createdSubmissionId1)

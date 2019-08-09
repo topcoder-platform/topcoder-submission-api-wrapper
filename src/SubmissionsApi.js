@@ -155,6 +155,17 @@ const downloadArtifact = (config, submissionId, artifactId, jwt = null) => {
   return helper.reqToV5APIDownload(config, jwt, `${config.SUBMISSION_API_URL}/submissions/${submissionId}/artifacts/${artifactId}/download`)
 }
 
+/**
+ * Function to delete artifact using submission id and artifact id
+ * @param {Object} config Configuration object
+ * @param {String} submissionId the submission id
+ * @param {String} artifactId the artifact id
+ * @returns {Promise}
+ */
+const deleteArtifact = (config, submissionId, artifactId, jwt = null) => {
+  return helper.reqToV5API(config, jwt, 'DELETE', `${config.SUBMISSION_API_URL}/submissions/${submissionId}/artifacts/${artifactId}`)
+}
+
 module.exports = {
   searchSubmissions,
   headSubmissions,
@@ -167,5 +178,6 @@ module.exports = {
   downloadSubmission,
   createArtifact,
   listArtifacts,
-  downloadArtifact
+  downloadArtifact,
+  deleteArtifact
 }

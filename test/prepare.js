@@ -419,6 +419,22 @@ prepare(function (done) {
     .reply(function (uri, body) {
       return [td.JOI_FAIL_STATUS, { message: td.NotFoundError.Artifact }]
     })
+    .delete(`/submissions/${td.SUBMISSION_ID1}/artifacts/${td.ARTIFACT_ID}`)
+    .reply(function (uri, body) {
+      return [td.DELETE_SUCCESS_STATUS, null]
+    })
+    .delete(`/submissions/invalid/artifacts/${td.ARTIFACT_ID}`)
+    .reply(function (uri, body) {
+      return [td.JOI_FAIL_STATUS, { message: `"submissionId" must be a valid GUID` }]
+    })
+    .delete(`/submissions/${td.NOT_FOUND_ID}/artifacts/${td.ARTIFACT_ID}`)
+    .reply(function (uri, body) {
+      return [td.JOI_FAIL_STATUS, { message: td.NotFoundError.Submission2 }]
+    })
+    .delete(`/submissions/${td.SUBMISSION_ID1}/artifacts/${td.NOT_FOUND_ID}`)
+    .reply(function (uri, body) {
+      return [td.JOI_FAIL_STATUS, { message: td.NotFoundError.Artifact }]
+    })
     .get(`/submissions/${td.NOT_FOUND_ID}/artifacts`)
     .query(true)
     .reply(function (uri, body) {
