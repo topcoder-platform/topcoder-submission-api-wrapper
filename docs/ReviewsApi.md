@@ -177,11 +177,17 @@ const submissionApiJwtMethodArgClient = submissionApi(_.pick(config, 'SUBMISSION
 
 const reqBody = {
   score: 89,
+  legacyReviewId: 1234567879,
   reviewerId: 'a3d891ef-4002-48fc-ae35-e8623e6bd4b9',
   submissionId: 'e328821a-6829-4214-b0d4-d7f7bf44dc98',
   scoreCardId: 30001850,
   typeId: '68c5a381-c8ab-48af-92a7-7a869a4ee6c3',
-  metadata: { abc: 'def' }
+  status: 'queued',
+  metadata: {
+    testType: 'provisional',
+    public: { abc: 123 },
+    private: { xyz: 789 }
+  }
 }
 
 // Promise model
@@ -383,11 +389,17 @@ const submissionApiJwtMethodArg = submissionApi(_.pick(config, 'SUBMISSION_API_U
 const reviewId = '8f4e8b6a-0ad2-4ff6-ab19-afeb102ff3b4'
 const reqBody = {
   score: 100,
+  legacyReviewId: 123456789,
   reviewerId: 'a3d891ef-4002-48fc-ae35-e8623e6bd4b9',
   submissionId: 'e328821a-6829-4214-b0d4-d7f7bf44dc98',
   scoreCardId: 30001850,
   typeId: '68c5a381-c8ab-48af-92a7-7a869a4ee6c3',
-  metadata: { abc: 'xyz' }
+  status: 'completed',
+  metadata: {
+    testType: 'provisional',
+    public: { abc: 123 },
+    private: { xyz: 789 }
+  }
 }
 
 // Promise model
@@ -460,7 +472,11 @@ const reqBody = {
   score: 99,
   reviewerId: 'a3d891ef-4002-48fc-ae35-e8623e6bd4b9',
   typeId: '68c5a381-c8ab-48af-92a7-7a869a4ee6c3',
-  metadata: { abc: 'def' }
+  metadata: {
+    testType: 'provisional',
+    public: { abc: 123 },
+    private: { xyz: 789 }
+  }
 }
 
 // Promise model

@@ -461,10 +461,7 @@ prepare(function (done) {
       const route = th.findRoute({ method: 'post', path: '/submissions/:id/artifacts' })
       const joiParam = {
         files: _.get(parsedBody, 'files'),
-        submissionId: td.SUBMISSION_ID1,
-        entity: {
-          typeId: _.get(parsedBody, 'typeId')
-        }
+        submissionId: td.SUBMISSION_ID1
       }
       if (!joiParam.files) {
         return [td.JOI_FAIL_STATUS, { message: 'Artifact is missing or not under attribute `artifact`' }]

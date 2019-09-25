@@ -33,6 +33,7 @@ const JOI_FAIL_STATUS = 400
 const NOT_FOUND_STATUS = 404
 const NOT_FOUND_ID = 'e0a789ea-6144-4266-bfae-872f9a26e749'
 const SUMMATION_NOTFOUND_ID = 'ace32387-8b33-47f1-8b01-6578b817a188'
+const REVIEW_STATUS_DEFAULT = 'completed'
 const NotFoundError = {
   ReviewType: `Review type with ID = ${NOT_FOUND_ID} is not found`,
   Review: `Review with ID = ${NOT_FOUND_ID} is not found`,
@@ -66,5 +67,6 @@ module.exports = {
   NOT_FOUND_STATUS,
   NOT_FOUND_ID,
   SUMMATION_NOTFOUND_ID,
+  REVIEW_STATUS_DEFAULT,
   NotFoundError
 }

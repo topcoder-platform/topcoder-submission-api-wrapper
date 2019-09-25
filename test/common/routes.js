@@ -8,6 +8,15 @@ const Reviews = require('../data/Reviews.json')
 const ReviewSummations = require('../data/ReviewSummations.json')
 const Submissions = require('../data/Submissions.json')
 
+joi.id = () => joi.number().integer().min(1)
+joi.reviewStatus = () => joi.string().valid('queued', 'completed')
+joi.sortOrder = () => joi.string().valid('asc', 'desc', 'ASC', 'DESC')
+joi.reviewMetadata = () => joi.object().keys({
+  testType: joi.string(),
+  public: joi.object(),
+  private: joi.object()
+})
+
 module.exports = {
   '/reviewTypes': {
     post: {
@@ -25,6 +34,8 @@ module.exports = {
         query: joi.object().keys({
           name: joi.string(),
           isActive: joi.boolean(),
+          sortBy: joi.string(),
+          orderBy: joi.sortOrder(),
           page: joi.id(),
           perPage: joi.pageSize()
         })
@@ -72,11 +83,13 @@ module.exports = {
         authUser: joi.object().required(),
         entity: joi.object().keys({
           score: joi.score().required(),
+          legacyReviewId: joi.id(),
           typeId: joi.string().uuid().required(),
           reviewerId: joi.alternatives().try(joi.id(), joi.string().uuid()).required(),
           scoreCardId: joi.alternatives().try(joi.id(), joi.string().uuid()).required(),
           submissionId: joi.string().uuid().required(),
-          metadata: joi.object()
+          status: joi.reviewStatus().default(td.REVIEW_STATUS_DEFAULT),
+          metadata: joi.reviewMetadata()
         }).required()
       }
     },
@@ -85,10 +98,14 @@ module.exports = {
       schema: {
         query: joi.object().keys({
           score: joi.score(),
+          legacyReviewId: joi.id(),
           typeId: joi.string().uuid(),
           reviewerId: joi.alternatives().try(joi.id(), joi.string().uuid()),
           scoreCardId: joi.alternatives().try(joi.id(), joi.string().uuid()),
           submissionId: joi.string().uuid(),
+          status: joi.reviewStatus(),
+          sortBy: joi.string(),
+          orderBy: joi.sortOrder(),
           page: joi.id(),
           perPage: joi.pageSize()
         })
@@ -110,11 +127,13 @@ module.exports = {
         reviewId: joi.string().uuid().required(),
         entity: joi.object().keys({
           score: joi.score().required(),
+          legacyReviewId: joi.id(),
           typeId: joi.string().uuid().required(),
           reviewerId: joi.alternatives().try(joi.id(), joi.string().uuid()).required(),
           scoreCardId: joi.alternatives().try(joi.id(), joi.string().uuid()).required(),
           submissionId: joi.string().uuid().required(),
-          metadata: joi.object()
+          status: joi.reviewStatus(),
+          metadata: joi.reviewMetadata()
         }).required()
       }
     },
@@ -125,11 +144,13 @@ module.exports = {
         reviewId: joi.string().uuid().required(),
         entity: joi.object().keys({
           score: joi.score(),
+          legacyReviewId: joi.id(),
           typeId: joi.string().uuid(),
           reviewerId: joi.alternatives().try(joi.id(), joi.string().uuid()),
           scoreCardId: joi.alternatives().try(joi.id(), joi.string().uuid()),
           submissionId: joi.string().uuid(),
-          metadata: joi.object()
+          status: joi.reviewStatus(),
+          metadata: joi.reviewMetadata()
         })
       }
     },
@@ -164,6 +185,8 @@ module.exports = {
           aggregateScore: joi.score(),
           isPassing: joi.boolean(),
           isFinal: joi.boolean(),
+          sortBy: joi.string(),
+          orderBy: joi.sortOrder(),
           page: joi.id(),
           perPage: joi.pageSize()
         })
@@ -243,13 +266,17 @@ module.exports = {
           legacySubmissionId: joi.alternatives().try(joi.id(), joi.string().uuid()),
           legacyUploadId: joi.alternatives().try(joi.id(), joi.string().uuid()),
           submissionPhaseId: joi.alternatives().try(joi.id(), joi.string().uuid()),
+          sortBy: joi.string(),
+          orderBy: joi.sortOrder(),
           page: joi.id(),
           perPage: joi.pageSize(),
           'review.score': joi.score(),
+          'review.legacyReviewId': joi.id(),
           'review.typeId': joi.string().uuid(),
           'review.reviewerId': joi.string().uuid(),
           'review.scoreCardId': joi.string().uuid(),
           'review.submissionId': joi.string().uuid(),
+          'review.status': joi.reviewStatus(),
           'reviewSummation.scoreCardId': joi.string().uuid(),
           'reviewSummation.submissionId': joi.string().uuid(),
           'reviewSummation.aggregateScore': joi.score(),
@@ -319,9 +346,7 @@ module.exports = {
       schema: {
         files: joi.any().required(),
         submissionId: joi.string().guid().required(),
-        entity: joi.object().keys({
-          typeId: joi.string().uuid().required()
-        }).required()
+        entity: joi.object()
       }
     },
     get: {
