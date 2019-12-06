@@ -226,8 +226,8 @@ module.exports = (allConfig) => {
       return require('./src/SubmissionsApi').deleteSubmission(config, submissionId, jwt)
     },
     // Download submission
-    downloadSubmission: (submissionId, jwt) => {
-      return require('./src/SubmissionsApi').downloadSubmission(config, submissionId, jwt)
+    downloadSubmission: (submissionId, jwt, streamed = false) => {
+      return require('./src/SubmissionsApi').downloadSubmission(config, submissionId, jwt, streamed)
     },
     // Create artifact for submission
     createArtifact: (submissionId, reqFormData, jwt) => {
@@ -238,8 +238,8 @@ module.exports = (allConfig) => {
       return require('./src/SubmissionsApi').listArtifacts(config, submissionId, jwt)
     },
     // Download artifact
-    downloadArtifact: (submissionId, artifactId, jwt) => {
-      return require('./src/SubmissionsApi').downloadArtifact(config, submissionId, artifactId, jwt)
+    downloadArtifact: (submissionId, artifactId, jwt, streamed = false) => {
+      return require('./src/SubmissionsApi').downloadArtifact(config, submissionId, artifactId, jwt, streamed)
     },
     // Delete artifact
     deleteArtifact: (submissionId, artifactId, jwt) => {

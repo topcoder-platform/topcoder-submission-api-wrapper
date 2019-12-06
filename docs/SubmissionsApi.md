@@ -669,6 +669,19 @@ await submissionApiM2MClient.downloadSubmission(submissionId)
 await submissionApiUserCredentialsClient.downloadSubmission(submissionId)
 
 await submissionApiJwtMethodArgClient.downloadSubmission(submissionId, config.JWT)
+
+// Stream Model
+const outputStream = fs.createWriteStream(filePath)
+const req = await submissionApiM2MClient.downloadSubmission(submissionId, null, true)
+req.pipe(outputStream)
+
+const outputStream = fs.createWriteStream(filePath)
+const req = await submissionApiUserCredentialsClient.downloadSubmission(submissionId, null, true)
+req.pipe(outputStream)
+
+const outputStream = fs.createWriteStream(filePath)
+const req = await submissionApiJwtMethodArgClient.downloadSubmission(submissionId, config.JWT, true)
+req.pipe(outputStream)
 ```
 
 ### Demo
@@ -716,6 +729,7 @@ Name | Type | Description
 ------------- | ------------- | -------------
  **submissionId** | String | the submission id
  **jwt**      | String | the optional json web token
+ **streamed**      | Boolean | the optional flag indicating whether or not to return a stream instead of a promise (default is promise)
 
 ### Return type
 
@@ -960,6 +974,19 @@ await submissionApiM2MClient.downloadArtifact(submissionId, artifactId)
 await submissionApiUserCredentialsClient.downloadArtifact(submissionId, artifactId)
 
 await submissionApiJwtMethodArgClient.downloadArtifact(submissionId, artifactId, config.JWT)
+
+// Stream Model
+const outputStream = fs.createWriteStream(filePath)
+const req = await submissionApiM2MClient.downloadArtifact(submissionId, artifactId, null, true)
+req.pipe(outputStream)
+
+const outputStream = fs.createWriteStream(filePath)
+const req = await submissionApiUserCredentialsClient.downloadArtifact(submissionId, artifactId, null, true)
+req.pipe(outputStream)
+
+const outputStream = fs.createWriteStream(filePath)
+const req = await submissionApiJwtMethodArgClient.downloadArtifact(submissionId, artifactId, config.JWT, true)
+req.pipe(outputStream)
 ```
 
 ### Demo
@@ -1008,6 +1035,7 @@ Name | Type | Description
  **submissionId** | String | the submission id
  **artifactId** | String | the artifact id
  **jwt**      | String | the optional json web token
+ **streamed**      | Boolean | the optional flag indicating whether or not to return a stream instead of a promise (default is a promise)
 
 ### Return type
 

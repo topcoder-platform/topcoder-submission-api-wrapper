@@ -164,14 +164,23 @@ const reqToV5APIWithFile = async (config, jwt, path, formData, fileFieldName) =>
  * Function to download file using V5 API
  * @param {Object} config Configuration object
  * @param {String} jwt The JWT
- * @param (String) path Complete path of the API URL
+ * @param {String} path Complete path of the API URL
+ * @param {Boolean} streamed Whether a stream is to be returned (Default: false)
  * @returns {Promise}
  */
-const reqToV5APIDownload = async (config, jwt, path) => {
+const reqToV5APIDownload = async (config, jwt, path, streamed = false) => {
   const token = await getToken(config, jwt)
-  return request
+  let req = request
     .get(path)
     .set('Authorization', `Bearer ${token}`)
+  if (streamed) {
+    req = req.buffer(false)
+    req.then = undefined
+    req.catch = undefined
+    req.finally = undefined
+    return req
+  }
+  return req
     .buffer(true)
     .parse(function (res, callback) {
       res.data = ''
