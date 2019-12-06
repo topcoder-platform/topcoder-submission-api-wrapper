@@ -116,10 +116,11 @@ const deleteSubmission = (config, submissionId, jwt = null) => {
  * Function to download submission by id.
  * @param {Object} config Configuration object
  * @param {String} submissionId the submission id
+ * @param {Boolean} streamed Whether a stream is to be returned (Default: false)
  * @returns {Promise} the submission file content
  */
-const downloadSubmission = (config, submissionId, jwt = null) => {
-  return helper.reqToV5APIDownload(config, jwt, `${config.SUBMISSION_API_URL}/submissions/${submissionId}/download`)
+const downloadSubmission = (config, submissionId, jwt = null, streamed = false) => {
+  return helper.reqToV5APIDownload(config, jwt, `${config.SUBMISSION_API_URL}/submissions/${submissionId}/download`, streamed)
 }
 
 /**
@@ -149,10 +150,11 @@ const listArtifacts = (config, submissionId, jwt = null) => {
  * @param {Object} config Configuration object
  * @param {String} submissionId the submission id
  * @param {String} artifactId the artifact id
+ * @param {Boolean} streamed Whether a stream is to be returned (Default: false)
  * @returns {Promise} the artifact file content
  */
-const downloadArtifact = (config, submissionId, artifactId, jwt = null) => {
-  return helper.reqToV5APIDownload(config, jwt, `${config.SUBMISSION_API_URL}/submissions/${submissionId}/artifacts/${artifactId}/download`)
+const downloadArtifact = (config, submissionId, artifactId, jwt = null, streamed = false) => {
+  return helper.reqToV5APIDownload(config, jwt, `${config.SUBMISSION_API_URL}/submissions/${submissionId}/artifacts/${artifactId}/download`, streamed)
 }
 
 /**
